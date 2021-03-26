@@ -27,6 +27,30 @@ a:visited {
   padding: 2em;
 }
 
+.artpage {
+  background-color: #404040;
+  color: rgb(181, 181, 181);
+}
+.artpage a {
+  color: rgb(181, 181, 181);
+}
+.artpage a:visited {
+  color: rgb(181, 181, 181);
+}
+
+.artfoot {
+  margin: 2em;
+  text-align: center;
+  font-size: 2rem;
+
+  display: grid;
+  grid-template-columns: auto auto;
+}
+/* .artfoot.span {
+
+  margin: 2em;
+} */
+
 @font-face {
   font-family: mainFont;
   src: url(fonts/JetBrainsMono-Regular);

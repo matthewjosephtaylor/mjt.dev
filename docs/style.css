@@ -8,10 +8,10 @@ body {
 }
 
 a {
-  color: rgb(21, 21, 21);
+  color: inherit;
 }
 a:visited {
-  color: rgb(21, 21, 21);
+  color: inherit;
 }
 
 .header {
@@ -45,21 +45,48 @@ a:visited {
   color: rgb(181, 181, 181);
 }
 
-.artfoot {
-  margin: 2em;
-  text-align: center;
+.art.properties {
+  float: right;
+  margin: 1em;
+  text-align: left;
   font-size: 2rem;
 
   display: grid;
-  grid-template-columns: auto auto;
+  gap: 1rem;
+  grid-template-columns: min-content min-content;
+  /* background-color: red; */
 }
-.artpage img {
+
+.art.hashtags {
+  float: left;
+  margin: 1em;
+  text-align: left;
+  font-size: 2rem;
+
+  display: grid;
+  gap: 1rem;
+  grid-template-rows: min-content min-content;
+}
+
+.art.actions {
+  float: left;
+  margin: 1em;
+  text-align: left;
+  font-size: 2rem;
+
+  display: grid;
+  gap: 1rem;
+  grid-template-rows: min-content min-content;
+}
+
+.art.page img {
   object-fit: cover;
   margin-left: 25%;
   margin-right: auto;
   width: 50%;
 }
-.artpage h5 {
+
+.art.head {
   text-align: center;
 }
 

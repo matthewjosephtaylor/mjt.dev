@@ -3,10 +3,7 @@
   "textColor": "rgb(96, 96, 96)",
   "title": "Requirement",
   "property": {
-    "style": [
-      "Abstract",
-      "Expressionist"
-    ]
+    "style": ["Abstract", "Expressionist"]
   },
   "hashTag": [
     "abstractart",
@@ -40,7 +37,7 @@
     },
     {
       "callToAction": "Own the NFT on OpenSea",
-      "url": "https://opensea.io/collection/mjt-dev"
+      "url": "https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/54510948395559757955729527801404410518511595523757409998275743904425870098433"
     }
   ],
   "artId": "art-fy8rvp-kmuvsv9b",

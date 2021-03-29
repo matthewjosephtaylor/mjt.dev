@@ -90,6 +90,13 @@ a:visited {
   text-align: center;
 }
 
+.about.page {
+  margin: 2em;
+}
+.process.page {
+  margin: 2em;
+}
+
 @font-face {
   font-family: mainFont;
   src: url(fonts/JetBrainsMono-Regular);

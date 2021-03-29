@@ -21,10 +21,10 @@ a:visited {
 }
 
 .content {
-  display: flex;
-  flex-wrap: wrap;
+  text-align: center;
   font-size: 1em;
-  padding: 2em;
+  /* padding: 2em; */
+  width: 100%
 }
 .main img {
   object-fit: cover;

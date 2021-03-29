@@ -81,9 +81,8 @@ a:visited {
 
 .art.page img {
   object-fit: cover;
-  margin-left: 25%;
   margin-right: auto;
-  width: 50%;
+  width: 60%;
 }
 
 .art.head {

@@ -6,10 +6,7 @@
     "artist": "Matthew Joseph Taylor",
     "mediatype": "image/png",
     "year": 2021,
-    "style": [
-      "Abstract",
-      "Expressionist"
-    ]
+    "style": ["Abstract", "Expressionist"]
   },
   "hashTag": [
     "abstractart",
@@ -50,7 +47,7 @@
     },
     {
       "callToAction": "Own the NFT",
-      "url": "https://opensea.io/collection/mjt-dev"
+      "url": "https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/54510948395559757955729527801404410518511595523757409998275743913221963120641"
     }
   ],
   "artId": "art-1ncywoi-kn3u0bqh",

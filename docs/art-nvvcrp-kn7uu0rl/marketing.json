@@ -6,10 +6,7 @@
     "artist": "Matthew Joseph Taylor",
     "mediatype": "image/png",
     "year": 2021,
-    "style": [
-      "Abstract",
-      "Expressionist"
-    ]
+    "style": ["Abstract", "Expressionist"]
   },
   "hashTag": [
     "abstractart",
@@ -42,11 +39,11 @@
   "action": [
     {
       "callToAction": "Like on Instagram",
-      "url": "https://www.instagram.com/mjtdev"
+      "url":"https://www.instagram.com/p/CNYIHu7FMjQ"
     },
     {
       "callToAction": "Own a tangible representation",
-      "url": "https://www.redbubble.com/people/truepurpose/shop"
+      "url": "https://www.redbubble.com/shop/ap/75627821?ref=studio-promote"
     },
     {
       "callToAction": "Own the NFT",

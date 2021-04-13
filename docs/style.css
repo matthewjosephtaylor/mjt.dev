@@ -1,10 +1,17 @@
+:root {
+  --background: #808080;
+  --background-selected: #e9e8e8a4;
+  --text: rgb(21, 21, 21);
+  --placeholder-text: rgb(143, 143, 143);
+}
+
 body {
   font-family: mainFont;
   font-size: 3em;
   align-items: center;
   box-sizing: border-box;
-  background-color: #808080;
-  color: rgb(21, 21, 21);
+  background-color: var(--background);
+  color: var(--text);
 }
 
 a {
@@ -26,15 +33,14 @@ a:visited {
   /* padding: 2em; */
   width: 100%;
 }
-.main img {
+/* .main img {
   object-fit: cover;
   margin: 1em;
   /* margin-left: 5%;
   margin-right: auto; */
-  width: 10%;
-}
-
-.artpage {
+/* width: 10%;
+} */
+*/ .artpage {
   background-color: #404040;
   color: rgb(181, 181, 181);
 }
@@ -130,4 +136,97 @@ a:visited {
 @font-face {
   font-family: mainFont;
   src: url(fonts/JetBrainsMono-Regular);
+}
+.menu {
+  /* width: 100%; */
+  text-align: center;
+  display: grid;
+  grid-template-rows: max-content auto min-content auto min-content auto;
+  align-items: center;
+}
+
+@media screen and (min-width: 900px) {
+  .menu {
+    display: grid;
+    grid-template-columns: max-content auto min-content auto min-content auto;
+    align-items: center;
+  }
+}
+
+.profile img {
+  width: 5em;
+  vertical-align: middle;
+  padding: 1em;
+}
+
+.menu a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+/* .spacer {
+  width: min-content;
+} */
+
+.search {
+  /* max-width: 10em; */
+  margin: 1em;
+}
+
+.links {
+  /* padding: 1em; */
+  display: grid;
+  align-items: center;
+}
+
+.socials img {
+  max-width: 1em;
+}
+
+.socials a {
+  /* margin: 0.5 em; */
+  padding: 1rem;
+}
+
+.menu input {
+  /* margin: 1rem; */
+  /* padding: 0.1rem; */
+  padding-left: 2.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--text);
+  color: var(--text);
+  background-image: url(assets/icon/search.svg);
+  background-repeat: no-repeat;
+  background-color: var(--background);
+  font-size: 1rem;
+}
+::placeholder {
+  color: var(--placeholder-text);
+}
+
+input:focus {
+  background-color: var(--background-selected);
+  border: 1px solid var(--text);
+  outline: none !important;
+}
+
+input {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2rem;
+}
+
+input:focus {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
 }

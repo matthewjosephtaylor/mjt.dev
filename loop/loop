@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+usage () {
+  echo -e "Usage: `basename $0`"
+  echo -e "Example: ./`basename $0`"a
+  exit -1
+}
+
+SAFE_ARGS=()
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -vv|--verbose) VERBOSITY="$2"; shift ;;
+        -h|--help) usage ;;
+        *) SAFE_ARGS+=("$1") ;;
+    esac
+    shift
+done
+
+if [[ "${VERBOSITY}" -gt 0 ]];then 
+  set -o verbose
+fi
+
+. "${SCRIPT_DIR}/CONFIG"
+
+build website
+cp -v "${DIST_DIR}/website/main.js" "${PROJECT_DIR}/docs/front-main.js"
+
+cd "${PROJECT_DIR}/docs"
+ls -d art-* > art-index.txt

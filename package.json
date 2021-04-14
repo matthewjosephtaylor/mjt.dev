@@ -1,0 +1,49 @@
+{
+  "name": "mjt.dev",
+  "version": "1.0.0",
+  "description": "Web content for the mjt.dev domain",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewjosephtaylor/mjt.dev.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthewjosephtaylor/mjt.dev/issues"
+  },
+  "homepage": "https://github.com/matthewjosephtaylor/mjt.dev#readme",
+  "devDependencies": {
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "clean-webpack-plugin": "^3.0.0",
+    "clipboardy": "^2.3.0",
+    "css-loader": "^5.2.1",
+    "expose-loader": "^0.7.5",
+    "git-revision-webpack-plugin": "^3.0.6",
+    "html-webpack-plugin": "^4.5.2",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.1.0",
+    "tsconfig-paths-webpack-plugin": "^3.5.1",
+    "typescript": "^4.2.4",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "dependencies": {
+    "@mjtdev/basics": "file:../basics",
+    "install": "^0.13.0",
+    "jquery": "^3.6.0",
+    "npm": "^7.9.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}

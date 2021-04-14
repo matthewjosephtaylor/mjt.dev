@@ -1,0 +1,15 @@
+# Source me to setup project env vars
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+
+export PROJECT_HOME="${SCRIPT_DIR}"
+export PATH="${PATH}:${SCRIPT_DIR}/loop"
+export PATH="${PATH}:${SCRIPT_DIR}/scripts"
+
+#alias pb='run pinbox'
+#alias pb='${SCRIPT_DIR}/dist/macos/pinbox'
+alias pb=/Users/mtaylor/local/bin/pinbox
+
+
+alias build-artpage='build artpage && cp -v dist/artpage/main.js ~/MJT/mjt.dev/docs/'

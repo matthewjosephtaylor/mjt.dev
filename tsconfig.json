@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true, // MUST NOT be inline for webpack to use properly
+    // "inlineSources": true,
+    // "inlineSourceMap": true,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "module": "CommonJS",
+    // "module": "esnext",
+    // "module": "ES2020",
+    "esModuleInterop": true,
+    // "moduleResolution": "Node",
+    // "resolveJsonModule": true,
+    // "target": "ES2019",
+    "target": "ES2019",
+    "jsx": "react",
+    "allowJs": true,
+    "checkJs": false,
+    "baseUrl": "src/ts",
+    // "paths": {
+    //   "@mjtdev/*": ["*"]
+    // },
+    "typeRoots": [
+      "./node_modules/@types",
+      // "./node_modules/@mjtdev/lib",
+      "./src/types"
+    ],
+    // "types": ["Phaser"],
+    "lib": ["es2016", "es2015", "dom", "es2019", "ESNext"]
+  },
+  "exclude": ["node_modules", "dist", "docker", "assets", "tmp", "scripts"]
+}

@@ -111,7 +111,7 @@ function isArtId(maybe) {
     return typeof maybe === "string" && ArtIdRegex.test(maybe);
 }
 (() => {
-    console.log(`Hello fellow coder :)\nThis is ${"573d3293c104335855b4246c6b283c85dcd8b237"} build on ${new Date(1619217151511).toUTCString()}`);
+    console.log(`Hello fellow coder :)\nThis is ${"a074ee25a34e000a5b95b3136ea80a5960c6325e"} build on ${new Date(1619310929364).toUTCString()}`);
     console.log("You might be interested in this: https://www.redbubble.com/people/truepurpose/shop?artistUserName=truepurpose&asc=u&collections=2230474");
     main();
 })();

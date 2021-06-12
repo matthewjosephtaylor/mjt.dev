@@ -1,0 +1,51 @@
+"Old Town"
+
+Spending a lazy afternoon watching the flow of people
+
+Process details: 
+
+This is a large SVG built up of several layers, much like how one would do a traditional painting.
+The final SVGs are usually around 50-150mb in size (pity my GPU that has to carry this weight).
+
+The SVG is produced with custom software I'm developing.
+ 
+With each piece I hone the software, as I'm honing the final image.
+ 
+The balance between programming and art I find pleases my soul.
+
+A lot of my process is simply looking at a wide variety of awesome art.
+
+As I see something interesting I try to figure out how it is done.
+ 
+I then noodle on the problem of how what the _essence_ of the technique is, and how I can achieve similar affect in my software.
+
+I modify the software to give me artistic 'primitives' that capture the essence of a style or technique.
+
+Wether I succeed or fail in my attempts at reproduction I often learn a great deal, and almost always come up with something interesting (sometimes in a completely different direction).
+ 
+I then choose what and how to mix these primitives together as I come to create a particular piece.
+
+Over time I'm building the tool that allows me to produce the images you see.
+
+I feel with each new image I learn something more about how art works, and become more capable of producing work I enjoy.
+
+High resolution image on my website
+
+https://mjt.dev/art-1zlwzo-kptrczyf
+
+Links to more of my work in my profile
+
+Thanks :)
+
+---IG---
+#abstractart #abstractdigitalart #amazingabstracts #arch_more #archdrawing #architecturesketch #artobserved #artview #artwillsaveus #buildingsketch #citydrawing #codeart #contemporaryart #contemporaryexpressionism #creativegrammer #dailyabstract #digitalpainters #distortionart #fineart #fineliner #houseportrait #housesketch #modernabstract #newaesthetic #nft #sketchcollector #techspressionism #urbansketcher #usk #visualfodder
+
+---ArtStation---
+#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting
+
+---Minds---
+#artcommunity #artfinder #artist #artistsonminds #digitalart
+
+---Redbubble---
+#abstract #artist #expressionist #mjtdev
+

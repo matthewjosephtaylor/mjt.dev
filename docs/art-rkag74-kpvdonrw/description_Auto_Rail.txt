@@ -12,7 +12,7 @@ This is a large SVG built up of several layers, much like how one would do a tra
 
 The final SVGs are usually around 50-150mb in size.
  
-With each piece I hone the software I&#x27;m crafting to produce the images.
+With each piece I hone the software I'm crafting to produce the images.
  
 The balance between programming and art I find pleases my soul.
 

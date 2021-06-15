@@ -1,0 +1,55 @@
+"Tomorrow's Yesterday"
+
+Today is such a lovely time
+
+Experimenting with combining.
+
+IMHO artistic creativity is combination with filtering.
+
+By giving myself the freedom to combine references images, I feel like I've unlocked a tool that allows greater expression.
+
+I don't think this is unique idea/feeling.
+
+It is nice to have experienced the joy of combinating.
+
+Process details: 
+
+I'm using custom software I'm developing to produce these images.
+
+Typescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.
+
+I sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).
+
+I then refine and recombine the 'extracts' looking for something that speaks to me.
+
+Often I'm programming at the same time, tweaking and adding new processing capabilities to the software.
+
+The end result is a large SVG built up of several layers.
+
+Each layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).
+
+The final SVG is usually around 50-150mb in size.
+ 
+The balance between programming and art I find pleases my soul.
+
+
+High resolution image on my website
+
+https://mjt.dev/art-kb87bb-kpxlt8su
+
+Links to more of my work in my profile
+
+Thanks :)
+
+---IG---
+#abstractart #abstractdigital #abstractdigitalart #abstractexpressionism #architecturesketch #artobserved #arttherapy #artview #citydrawing #codeart #contemporaryart #contemporaryexpressionism #creativegrammer #dailysketch #deepart #digitalpainters #fineart #generativeart #houseportrait #housesketch #illustration #newaesthetic #newmediaart #nft #sketchcollector #techspressionism #thecreatart #theuniversalart #urbansketcher #urbansketching
+
+---ArtStation---
+#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting
+
+---Minds---
+#artistsonminds #artwork #creativecommunity #digitalart #myart
+
+---Redbubble---
+#abstract #artist #expressionist #mjtdev
+

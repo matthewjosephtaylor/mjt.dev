@@ -1,0 +1,54 @@
+"Reality Unleashed"
+
+The world is more than it appears
+
+
+I love how the colors dance and sing on this piece.
+
+The unusual pallet produces a lot of interest to what otherwise might be a boring scene.
+
+The sky is where all the real action is. 
+
+Highly recommend taking a look at the high-res image on my website for this one.
+
+Process details: 
+
+I'm using custom software I'm developing to produce these images.
+
+Typescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.
+
+I sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).
+
+I then refine and recombine the 'extracts' looking for something that speaks to me.
+
+Often I'm programming at the same time, tweaking and adding new processing capabilities to the software.
+
+The end result is a large SVG built up of several layers.
+
+Each layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).
+
+The final SVG is usually around 50-150mb in size.
+ 
+The balance between programming and art I find pleases my soul.
+
+
+High resolution image on my website
+
+https://mjt.dev/art-1fmzzf4-kpy2qgcr
+
+Links to more of my work in my profile
+
+Thanks :)
+
+---IG---
+#abstractdigitalart #abstractexpressionism #archdrawing #architecturesketch #art_seeking #artview #artwillsaveus #buildingsketch #citydrawing #codeart #contemporaryart #contemporaryexpressionism #creativegrammer #deepart #fineart #fineliner #generativeart #housesketch #illustration #modernabstract #newaesthetic #newmediaart #nft #techspressionism #thecreatart #theuniversalart #unitedbyedit #urbansketcher #urbansketching #usk
+
+---ArtStation---
+#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting
+
+---Minds---
+#art #artfinder #artistsonminds #artwork #painting
+
+---Redbubble---
+#abstract #artist #expressionist #mjtdev
+

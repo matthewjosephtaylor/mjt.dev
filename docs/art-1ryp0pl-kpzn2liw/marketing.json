@@ -1,0 +1,97 @@
+{
+  "backgroundColor": "rgb(233, 228, 225)",
+  "textColor": "rgb(96, 96, 96)",
+  "title": "Cardboard Sidewalk",
+  "tagline": "While it lasts",
+  "notes": "\nThere is a shabby-playful feel that I think this piece captures.\n\nLooking deeper there is a visual ambiguity with this piece that I love.\n\nIs it a building or graffiti of a building? Stories within stories....\n\nProcess details: \n\nI'm using custom software I'm developing to produce these images.\n\nTypescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.\n\nI sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).\n\nI then refine and recombine the 'extracts' looking for something that speaks to me.\n\nOften I'm programming at the same time, tweaking and adding new processing capabilities to the software.\n\nThe end result is a large SVG built up of several layers.\n\nEach layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).\n\nThe final SVG is usually around 50-150mb in size.\n \nThe balance between programming and art I find pleases my soul.\n",
+  "property": {
+    "artist": "Matthew Joseph Taylor",
+    "mediatype": "image/png",
+    "year": 2021,
+    "style": [
+      "Abstract",
+      "Expressionist"
+    ]
+  },
+  "hashTag": {
+    "IG": [
+      "abstractart",
+      "abstractart_daily",
+      "abstractdigital",
+      "abstractdigitalart",
+      "arch_more",
+      "architecturesketch",
+      "buildingsketch",
+      "citydrawing",
+      "codeart",
+      "contemporaryart",
+      "creativegrammer",
+      "dailyabstract",
+      "dailysketch",
+      "deepart",
+      "distortionart",
+      "figurepainting",
+      "fineart",
+      "fineliner",
+      "generativeart",
+      "instaart",
+      "modernabstract",
+      "newaesthetic",
+      "newmediaart",
+      "nft",
+      "proceduralart",
+      "thecreatart",
+      "theuniversalart",
+      "unitedbyedit",
+      "usk",
+      "visualfodder"
+    ],
+    "ArtStation": [
+      "abstract",
+      "art",
+      "artist",
+      "artoftheday",
+      "dart",
+      "digitalart",
+      "illustration",
+      "painting"
+    ],
+    "Minds": [
+      "artfinder",
+      "artwork",
+      "creativecommunity",
+      "myart",
+      "painting"
+    ],
+    "Redbubble": [
+      "abstract",
+      "artist",
+      "expressionist",
+      "mjtdev"
+    ]
+  },
+  "action": [
+    {
+      "callToAction": "View on Instagram",
+      "url": "https://www.instagram.com/mjtdev"
+    },
+    {
+      "callToAction": "View on Minds",
+      "url": "https://www.minds.com/mjtdev"
+    },
+    {
+      "callToAction": "View on ArtStation",
+      "url": "https://mjtdev.artstation.com"
+    },
+    {
+      "callToAction": "Buy on Redbubble",
+      "url": "https://www.redbubble.com/people/truepurpose/shop"
+    },
+    {
+      "callToAction": "Own the NFT",
+      "url": "https://opensea.io/collection/mjt-dev"
+    }
+  ],
+  "artId": "art-1ryp0pl-kpzn2liw",
+  "description": "\"Cardboard Sidewalk\"\n\nWhile it lasts\n\n\nThere is a shabby-playful feel that I think this piece captures.\n\nLooking deeper there is a visual ambiguity with this piece that I love.\n\nIs it a building or graffiti of a building? Stories within stories....\n\nProcess details: \n\nI'm using custom software I'm developing to produce these images.\n\nTypescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.\n\nI sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).\n\nI then refine and recombine the 'extracts' looking for something that speaks to me.\n\nOften I'm programming at the same time, tweaking and adding new processing capabilities to the software.\n\nThe end result is a large SVG built up of several layers.\n\nEach layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).\n\nThe final SVG is usually around 50-150mb in size.\n \nThe balance between programming and art I find pleases my soul.\n\n\nHigh resolution image on my website\n\nhttps://mjt.dev/art-1ryp0pl-kpzn2liw\n\nLinks to more of my work in my profile\n\nThanks :)\n\n---IG---\n#abstractart #abstractart_daily #abstractdigital #abstractdigitalart #arch_more #architecturesketch #buildingsketch #citydrawing #codeart #contemporaryart #creativegrammer #dailyabstract #dailysketch #deepart #distortionart #figurepainting #fineart #fineliner #generativeart #instaart #modernabstract #newaesthetic #newmediaart #nft #proceduralart #thecreatart #theuniversalart #unitedbyedit #usk #visualfodder\n\n---ArtStation---\n#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting\n\n---Minds---\n#artfinder #artwork #creativecommunity #myart #painting\n\n---Redbubble---\n#abstract #artist #expressionist #mjtdev\n\n"
+}

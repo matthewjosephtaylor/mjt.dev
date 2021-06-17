@@ -1,0 +1,57 @@
+"Moment"
+
+Where were you then?
+
+
+Lines and shadows.
+
+How much of the beauty of the world do we miss by being so emersed in it?
+
+Like a fish unaware of water, I often forget to be flabbergasted that the world exists.
+
+It is of course OK to forget this. Living and being part of the world is its own thing.
+
+But it is nice from time to time to pluck a moment from time, and admire it for itself.
+
+
+Process details: 
+
+I'm using custom software I'm developing to produce these images.
+
+Typescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.
+
+I sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).
+
+I then refine and recombine the 'extracts' looking for something that speaks to me.
+
+Often I'm programming at the same time, tweaking and adding new processing capabilities to the software.
+
+The end result is a large SVG built up of several layers.
+
+Each layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).
+
+The final SVG is usually around 50-150mb in size.
+ 
+The balance between programming and art I find pleases my soul.
+
+
+High resolution image on my website
+
+https://mjt.dev/art-aixeak-kq0gowcv
+
+Links to more of my work in my profile
+
+Thanks :)
+
+---IG---
+#abstractart #abstractart_daily #abstractdigital #abstractdigitalart #abstractexpressionism #archdrawing #architecturesketch #art_seeking #artobserved #artoftheday #artseeking #artview #artwillsaveus #cityscapeart #codeart #contemporaryart #creativegrammer #dailyabstract #dailysketch #deepart #distortionart #fineart #instaart #modernabstract #nft #sketchcollector #theuniversalart #unitedbyedit #urbansketching #visualfodder
+
+---ArtStation---
+#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting
+
+---Minds---
+#artist #artistsonminds #creativecommunity #digitalart #painting
+
+---Redbubble---
+#abstract #artist #expressionist #mjtdev
+

@@ -1,0 +1,55 @@
+"Funk It"
+
+Work hard, build it up, and then let it go
+
+I love old, broken, decaying, and abandoned things.
+
+The things we discard often tell a rich story.
+
+As things are used, life leaves its marks, and history is made.
+
+It is fun to remember that we are the stuff of old broken stars.
+
+Today's old and broken is tomorrow's fresh and new.
+
+Process details: 
+
+I'm using custom software I'm developing to produce these images.
+
+Typescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.
+
+I sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).
+
+I then refine and recombine the 'extracts' looking for something that speaks to me.
+
+Often I'm programming at the same time, tweaking and adding new processing capabilities to the software.
+
+The end result is a large SVG built up of several layers.
+
+Each layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).
+
+The final SVG is usually around 50-150mb in size.
+ 
+The balance between programming and art I find pleases my soul.
+
+
+High resolution image on my website
+
+https://mjt.dev/art-1h3ha4q-kq2p6cq6
+
+Links to more of my work in my profile
+
+Thanks :)
+
+---IG---
+#abstractart_daily #abstractdigital #abstractdigitalart #amazingabstracts #archdrawing #artobserved #artoftheday #artseeking #artwillsaveus #codeart #dark #darkart #digitalpainters #figurepainting #fineart #generativeart #houseportrait #housesketch #illustration #instaart #modernabstract #nft #sketchcollector #surrealism #techspressionism #todaysartreport #urbansketch #urbansketcher #usk #visualfodder
+
+---ArtStation---
+#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting
+
+---Minds---
+#artist #artwork #creativecommunity #myart #painting
+
+---Redbubble---
+#abstract #artist #expressionist #mjtdev
+

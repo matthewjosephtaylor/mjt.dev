@@ -1,0 +1,55 @@
+"Enjoy The Moment"
+
+It is such a lovely day
+
+
+I think I'm capturing many of the qualities of watercolor that I admire in this piece.
+
+Especially the greys.
+
+Recommend focusing on the the solidness of the windows when viewing.
+
+Ask what is behind that window?
+
+
+Process details: 
+
+I'm using custom software I'm developing to produce these images.
+
+Typescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.
+
+I sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).
+
+I then refine and recombine the 'extracts' looking for something that speaks to me.
+
+Often I'm programming at the same time, tweaking and adding new processing capabilities to the software.
+
+The end result is a large SVG built up of several layers.
+
+Each layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).
+
+The final SVG is usually around 50-150mb in size.
+ 
+The balance between programming and art I find pleases my soul.
+
+
+High resolution image on my website
+
+https://mjt.dev/art-1vqrumo-kq6twyc9
+
+Links to more of my work in my profile
+
+Thanks :)
+
+---IG---
+#abstractdigital #abstractexpressionism #archdrawing #architecturesketch #art_seeking #artforthesoul #artoftheday #arttherapy #artview #artwillsaveus #citydrawing #cityscapeart #contemporaryart #contemporaryexpressionism #dailyabstract #dailyarts #deepart #digitalpainters #figurepainting #generativeart #houseportrait #housesketch #illustration #newaesthetic #newmediaart #proceduralart #urbansketch #urbansketcher #viewartgallery #visualfodder
+
+---ArtStation---
+#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting
+
+---Minds---
+#artfinder #artist #creativecommunity #digitalart #painting
+
+---Redbubble---
+#abstract #artist #expressionist #mjtdev
+

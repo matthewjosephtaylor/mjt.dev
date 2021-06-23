@@ -1,0 +1,50 @@
+"Magic Ride"
+
+Where will it take you?
+
+
+Contrast Contrast Contrast.
+
+Digging the graphite feel next to the dazzling color.
+
+Process details: 
+
+I'm using custom software I'm developing to produce these images.
+
+Typescript, and HTML canvas are my present foundational tools, my virtual equivalents of traditional brushes, pigment and surface.
+
+I sample from reference images and 'extract' different things from them (colors, shapes, textures, etc...).
+
+I then refine and recombine the 'extracts' looking for something that speaks to me.
+
+Often I'm programming at the same time, tweaking and adding new processing capabilities to the software.
+
+The end result is a large SVG built up of several layers.
+
+Each layer serves a specific visual purpose, much like how one would do a traditional painting (underpainting, tone, line, etc..).
+
+The final SVG is usually around 50-150mb in size.
+ 
+The balance between programming and art I find pleases my soul.
+
+
+High resolution image on my website
+
+https://mjt.dev/art-1fnmrwy-kq9v9ag7
+
+Links to more of my work in my profile
+
+Thanks :)
+
+---IG---
+#abstractdigital #abstractdigitalart #abstractexpressionism #architecturesketch #artforthesoul #artseeking #arttherapy #artview #artwillsaveus #buildingsketch #citydrawing #codeart #contemporaryart #dailyabstract #deepart #digitalart #distortionart #fineart #generativeart #illustration #newaesthetic #newmediaart #proceduralart #sketchcollector #techspressionism #todaysartreport #urbansketch #urbansketcher #urbansketching #usk
+
+---ArtStation---
+#abstract #art #artist #artoftheday #dart #digitalart #illustration #painting
+
+---Minds---
+#artcommunity #artistsonminds #artwork #creativecommunity #digitalart
+
+---Redbubble---
+#abstract #artist #expressionist #mjtdev
+

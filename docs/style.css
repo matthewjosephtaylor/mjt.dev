@@ -55,6 +55,7 @@ a:hover { opacity: 0.8; }
 
 /* === Hero === */
 .hero { text-align: center; padding: var(--space-xl) 0; }
+.hero-logo { width: 200px; height: 200px; object-fit: cover; margin-bottom: var(--space-sm); }
 .hero-name { font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem); font-weight: 700; }
 .hero-motto { font-style: italic; color: var(--text-muted); margin-top: var(--space-sm); }
 

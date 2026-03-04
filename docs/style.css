@@ -85,3 +85,17 @@ a:hover { opacity: 0.8; }
 .art-page { max-width: 900px; margin: 0 auto; padding: var(--space-md); }
 .art-page img { width: 100%; height: auto; }
 .art-meta { margin-top: var(--space-md); }
+
+/* === Navigation === */
+.nav { padding: var(--space-md) 0; }
+
+/* === Writing Page === */
+.writing-venues { display: flex; flex-direction: column; gap: var(--space-md); }
+.venue-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: var(--space-md); }
+.venue-block h2 { margin-bottom: var(--space-xs); }
+.venue-block p { color: var(--text-muted); margin-bottom: var(--space-sm); }
+.button { display: inline-block; padding: 0.5rem 1rem; background: var(--border); color: var(--text); border-radius: 4px; font-weight: 500; transition: background 150ms; }
+.button:hover { background: var(--text-muted); color: var(--bg); text-decoration: none; opacity: 1; }
+@media (prefers-color-scheme: light) {
+  .button:hover { background: var(--text-muted); color: #fff; }
+}

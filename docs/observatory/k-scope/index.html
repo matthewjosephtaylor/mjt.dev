@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Scope: The Shape of the Economy &mdash; Matthew Joseph Taylor</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    /* K-Scope visualization styles — self-contained, dark theme */
+    .k-scope {
+      background: #0c0c14;
+      color: #dcdce4;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .k-scope .k-container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    /* Header */
+    .k-scope .k-header { text-align: center; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #2a2a3a; }
+    .k-scope .k-header h2 { font-size: 2.4rem; font-weight: 300; letter-spacing: 0.04em; margin-bottom: 0.3rem; color: #dcdce4; }
+    .k-scope .k-header h2 span { color: #f59e0b; font-weight: 600; }
+    .k-scope .k-header .subtitle { color: #a0a0b0; font-size: 1rem; font-style: italic; margin-bottom: 1rem; }
+    .k-scope .k-header .updated { color: #808090; font-size: 0.875rem; }
+
+    /* Key Stats Bar */
+    .k-scope .stats-bar {
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+      margin: 1.5rem 0; padding: 1rem 0;
+    }
+    .k-scope .stat { text-align: center; }
+    .k-scope .stat .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a0a0b0; font-weight: 500; }
+    .k-scope .stat .value { font-size: 1.6rem; font-weight: 600; font-family: 'JetBrains Mono', Menlo, Monaco, Consolas, monospace; }
+    .k-scope .stat .value.up { color: #f59e0b; }
+    .k-scope .stat .value.down { color: #22d3ee; }
+    .k-scope .stat .value.neg { color: #f87171; }
+
+    /* Panel Cards */
+    .k-scope .panel {
+      background: #14141f; border-radius: 12px; padding: 1.5rem;
+      margin-bottom: 1.5rem; border: 1px solid #1e1e2e;
+    }
+    .k-scope .panel.hero { padding: 2rem; }
+    .k-scope .panel h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.2rem; color: #dcdce4; }
+    .k-scope .panel .panel-subtitle { color: #a0a0b0; font-size: 0.875rem; margin-bottom: 1rem; }
+    .k-scope .panel .insight { color: #a0a0b0; font-size: 0.875rem; font-style: italic; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #1e1e2e; line-height: 1.6; }
+
+    /* Chart SVG */
+    .k-scope .chart-container { width: 100%; }
+    .k-scope .chart-container svg { width: 100%; display: block; }
+
+    /* Legends */
+    .k-scope .legend { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 0.8rem; }
+    .k-scope .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: #a0a0b0; }
+    .k-scope .legend-swatch { width: 16px; height: 3px; border-radius: 2px; }
+
+    /* Tooltip */
+    .k-scope-tooltip {
+      position: fixed; pointer-events: none; background: #1a1a2e; border: 1px solid #3a3a4a;
+      border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.8125rem; z-index: 100;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6); max-width: 300px;
+      display: none; font-family: 'Inter', system-ui, sans-serif; color: #dcdce4;
+    }
+    .k-scope-tooltip .tt-date { color: #dcdce4; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.875rem; }
+    .k-scope-tooltip .tt-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.1rem 0; }
+    .k-scope-tooltip .tt-label { color: #a0a0b0; }
+    .k-scope-tooltip .tt-val { font-weight: 600; font-variant-numeric: tabular-nums; font-family: 'JetBrains Mono', monospace; font-size: 0.8125rem; }
+
+    /* K-Scope Footer */
+    .k-scope .k-footer { text-align: center; padding: 2rem 0 1rem; color: #808090; font-size: 0.8125rem; border-top: 1px solid #1e1e2e; margin-top: 1rem; line-height: 1.6; }
+    .k-scope .k-footer a { color: #808090; }
+
+    /* Axes */
+    .k-scope .axis text { fill: #888898; font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+    .k-scope .axis path, .k-scope .axis line { stroke: #2a2a3a; }
+    .k-scope .grid line { stroke: #1e1e2e; stroke-dasharray: 2,4; }
+    .k-scope .grid path { stroke: none; }
+    .k-scope .reference-line { stroke: #4a4a5a; stroke-dasharray: 4,4; stroke-width: 1; }
+    .k-scope .crosshair { stroke: #4a4a5a; stroke-width: 1; stroke-dasharray: 2,2; }
+
+    /* Two-column layout for smaller panels */
+    .k-scope .panels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .k-scope .panels-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 1200px) { .k-scope .panels-grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 1000px) { .k-scope .panels-grid { grid-template-columns: 1fr; } .k-scope .panels-grid-3 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div style="padding: var(--space-sm) var(--space-sm) 0;">
+    <a href="../" style="font-weight: 600;">&larr; Observatory</a>
+  </div>
+
+  <main class="content section" style="max-width: 1500px;">
+    <h1 style="margin-bottom: var(--space-xs);">K-Scope</h1>
+    <p style="color: var(--text-muted); margin-bottom: var(--space-md);">
+      The headline economy and the lived economy are diverging. Capital metrics — the S&amp;P 500, corporate profits, top-percentile wealth — climb. Labor metrics — participation, hires, wages as a share of GDP — drift or decline. Both are true simultaneously. The K-shape is the structure underneath the aggregate.
+    </p>
+    <p style="color: var(--text-muted); margin-bottom: var(--space-md);">
+      This dashboard tracks that divergence using Federal Reserve data. Every chart shows the same economy from a different angle. The data updates monthly.
+    </p>
+
+    <div class="k-scope">
+      <div class="k-container">
+        <div class="k-header" role="banner">
+          <h2><span>K-Scope</span> &mdash; The Shape of the Economy</h2>
+          <p class="subtitle">Every metric as divergence, not aggregate</p>
+          <p class="updated" id="updated"></p>
+        </div>
+
+        <nav class="stats-bar" id="stats-bar" aria-label="Key economic indicators"></nav>
+        <section class="panel hero" id="panel-k-shape" aria-label="K-Shape divergence"></section>
+        <div class="panels-grid">
+          <section class="panel" id="panel-labor" aria-label="Labor market"></section>
+          <section class="panel" id="panel-wage-price" aria-label="Wage-price race"></section>
+          <section class="panel" id="panel-ghost-jobs" aria-label="Ghost jobs gap"></section>
+          <section class="panel" id="panel-policy" aria-label="Policy signals"></section>
+        </div>
+        <section class="panel" id="panel-jobs-k" aria-label="Jobs K-shape by sector"></section>
+        <div class="panels-grid">
+          <section class="panel" id="panel-jobs-wages" aria-label="Jobs vs wages crossover"></section>
+          <section class="panel" id="panel-canary" aria-label="Temp help canary indicator"></section>
+        </div>
+        <section class="panel" id="panel-wealth" aria-label="Wealth distribution"></section>
+
+        <div class="k-footer">
+          Data: <a href="https://fred.stlouisfed.org">FRED</a> (Federal Reserve Economic Data)<br>
+          All data from official US government sources. Monthly/quarterly frequency.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a href="../">Observatory</a> &middot;
+    <a href="../../">Home</a> &middot;
+    <a href="../../about/">About</a>
+  </footer>
+
+  <div class="k-scope-tooltip" id="tooltip"></div>
+
+<script>
+const COLORS = {
+  SP500: '#f59e0b', CP: '#f87171', WEALTH_TOP: '#f59e0b',
+  CIVPART: '#22d3ee', W270RE1A156NBEA: '#60a5fa', JTSHIR_lower: '#a78bfa', WEALTH_BOTTOM: '#22d3ee',
+  UNRATE: '#34d399', U6RATE: '#f59e0b', NOT_IN_LF: '#f87171',
+  CPIAUCSL: '#f87171', CES0500000003: '#34d399',
+  JTSJOL: '#f59e0b', JTSHIR: '#22d3ee',
+  FEDFUNDS: '#f59e0b', T10Y2Y: '#22d3ee',
+  SECTOR_HEALTHCARE: '#34d399', SECTOR_TRANSPORT: '#2dd4bf', SECTOR_PROTECH: '#60a5fa',
+  SECTOR_CONSTRUCTION: '#818cf8', SECTOR_TOTAL: '#dcdce4', SECTOR_FINANCE: '#a78bfa',
+  SECTOR_LEISURE: '#fbbf24', SECTOR_RETAIL: '#f59e0b', SECTOR_MFGR: '#fb923c',
+  SECTOR_INFO: '#f87171', SECTOR_MINING: '#ef4444', SECTOR_TEMP: '#dc2626',
+};
+
+const tooltip = d3.select('#tooltip');
+
+function parseDate(d) { return new Date(d); }
+function lastVal(obs) { return obs[obs.length - 1]?.value; }
+function firstVal(obs) { return obs[0]?.value; }
+
+function indexSeries(obs, baseDate) {
+  const bd = new Date(baseDate);
+  let baseOb = obs.find(o => parseDate(o.date) >= bd);
+  if (!baseOb) baseOb = obs[0];
+  const base = baseOb.value;
+  if (!base || base === 0) return obs.map(o => ({ date: parseDate(o.date), value: 100 }));
+  return obs.map(o => ({ date: parseDate(o.date), value: (o.value / base) * 100 }));
+}
+
+function makeDateObs(obs) {
+  return obs.map(o => ({ date: parseDate(o.date), value: +o.value })).filter(o => !isNaN(o.value));
+}
+
+function showTooltip(event, html) {
+  tooltip.html(html).style('display', 'block');
+  const tt = tooltip.node().getBoundingClientRect();
+  let x = event.clientX + 14, y = event.clientY - 10;
+  if (x + tt.width > window.innerWidth - 10) x = event.clientX - tt.width - 14;
+  if (y + tt.height > window.innerHeight - 10) y = event.clientY - tt.height - 10;
+  tooltip.style('left', x + 'px').style('top', y + 'px');
+}
+
+function hideTooltip() { tooltip.style('display', 'none'); }
+
+function buildChart({ container, series, height, yLabel, yFormat, fillBetween, shadeBelowZero, referenceLine }) {
+  const el = d3.select(container);
+  const rect = el.node().getBoundingClientRect();
+  const margin = { top: 20, right: 20, bottom: 30, left: 55 };
+  const width = Math.max(rect.width - 32, 300);
+  const h = height || 300;
+
+  const svg = el.append('div').attr('class', 'chart-container')
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${h}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
+
+  const g = svg.append('g');
+
+  let allDates = [], allVals = [];
+  series.forEach(s => {
+    s.data.forEach(d => { allDates.push(d.date); allVals.push(d.value); });
+  });
+
+  const x = d3.scaleTime().domain(d3.extent(allDates)).range([margin.left, width - margin.right]);
+  const yMin = d3.min(allVals), yMax = d3.max(allVals);
+  const yPad = (yMax - yMin) * 0.08 || 5;
+  const y = d3.scaleLinear()
+    .domain([Math.min(yMin - yPad, referenceLine != null ? referenceLine - yPad : Infinity),
+             Math.max(yMax + yPad, referenceLine != null ? referenceLine + yPad : -Infinity)])
+    .range([h - margin.bottom, margin.top]);
+
+  g.append('g').attr('class', 'grid')
+    .attr('transform', `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y).tickSize(-(width - margin.left - margin.right)).tickFormat('').ticks(5));
+
+  if (shadeBelowZero) {
+    const zeroY = y(0);
+    if (zeroY < h - margin.bottom) {
+      g.append('rect')
+        .attr('x', margin.left).attr('y', zeroY)
+        .attr('width', width - margin.left - margin.right)
+        .attr('height', Math.min(h - margin.bottom - zeroY, h))
+        .attr('fill', '#ef4444').attr('opacity', 0.06);
+    }
+  }
+
+  if (fillBetween && series.length >= 2) {
+    const s1 = series[fillBetween[0]].data;
+    const s2 = series[fillBetween[1]].data;
+    const dateMap1 = new Map(s1.map(d => [d.date.getTime(), d.value]));
+    const dateMap2 = new Map(s2.map(d => [d.date.getTime(), d.value]));
+    const allTimes = [...new Set([...dateMap1.keys(), ...dateMap2.keys()])].sort((a, b) => a - b);
+
+    const paired = [];
+    let lastV1 = null, lastV2 = null;
+    allTimes.forEach(t => {
+      const v1 = dateMap1.has(t) ? dateMap1.get(t) : lastV1;
+      const v2 = dateMap2.has(t) ? dateMap2.get(t) : lastV2;
+      if (v1 != null && v2 != null) paired.push({ date: new Date(t), v1, v2 });
+      if (v1 != null) lastV1 = v1;
+      if (v2 != null) lastV2 = v2;
+    });
+
+    const area = d3.area()
+      .x(d => x(d.date)).y0(d => y(d.v1)).y1(d => y(d.v2)).curve(d3.curveMonotoneX);
+
+    let segments = [];
+    let current = [paired[0]];
+    for (let i = 1; i < paired.length; i++) {
+      const prevSign = paired[i - 1].v2 >= paired[i - 1].v1;
+      const curSign = paired[i].v2 >= paired[i].v1;
+      if (prevSign !== curSign) {
+        current.push(paired[i]);
+        segments.push({ data: current, positive: prevSign });
+        current = [paired[i]];
+      } else {
+        current.push(paired[i]);
+      }
+    }
+    if (current.length > 0) {
+      segments.push({ data: current, positive: current[0].v2 >= current[0].v1 });
+    }
+
+    segments.forEach(seg => {
+      g.append('path').datum(seg.data)
+        .attr('fill', seg.positive ? '#22c55e' : '#ef4444')
+        .attr('opacity', 0.15).attr('d', area);
+    });
+  }
+
+  if (referenceLine != null) {
+    g.append('line').attr('class', 'reference-line')
+      .attr('x1', margin.left).attr('x2', width - margin.right)
+      .attr('y1', y(referenceLine)).attr('y2', y(referenceLine));
+  }
+
+  const line = d3.line().x(d => x(d.date)).y(d => y(d.value)).curve(d3.curveMonotoneX).defined(d => d.value != null);
+
+  series.forEach(s => {
+    if (s.data.length <= 12 && s.dots) {
+      g.selectAll(`.dot-${s.id}`).data(s.data).join('circle')
+        .attr('cx', d => x(d.date)).attr('cy', d => y(d.value))
+        .attr('r', 4).attr('fill', s.color).attr('opacity', 0.8);
+      g.append('path').datum(s.data)
+        .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 1)
+        .attr('stroke-dasharray', '4,4').attr('opacity', 0.5).attr('d', line);
+    } else {
+      g.append('path').datum(s.data)
+        .attr('fill', 'none').attr('stroke', s.color)
+        .attr('stroke-width', s.bold ? 2.5 : 1.8).attr('opacity', s.opacity || 0.9)
+        .attr('d', line);
+    }
+  });
+
+  const fmtY = yFormat ? d3.format(yFormat) : d3.format('.1f');
+  g.append('g').attr('class', 'axis')
+    .attr('transform', `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y).ticks(5).tickFormat(fmtY));
+
+  g.append('g').attr('class', 'axis')
+    .attr('transform', `translate(0,${h - margin.bottom})`)
+    .call(d3.axisBottom(x).ticks(d3.timeYear.every(1)).tickFormat(d3.timeFormat('%Y')));
+
+  const bisect = d3.bisector(d => d.date).left;
+  const overlay = svg.append('rect')
+    .attr('x', margin.left).attr('y', margin.top)
+    .attr('width', width - margin.left - margin.right)
+    .attr('height', h - margin.top - margin.bottom)
+    .attr('fill', 'transparent').attr('cursor', 'crosshair');
+
+  const crosshair = g.append('line').attr('class', 'crosshair')
+    .attr('y1', margin.top).attr('y2', h - margin.bottom).style('display', 'none');
+
+  overlay.on('mousemove', function(event) {
+    const [mx] = d3.pointer(event, this);
+    const dateAtMouse = x.invert(mx);
+    const cx = mx + margin.left;
+    crosshair.attr('x1', cx).attr('x2', cx).style('display', null);
+
+    let html = `<div class="tt-date">${d3.timeFormat('%b %Y')(dateAtMouse)}</div>`;
+    series.forEach(s => {
+      const i = bisect(s.data, dateAtMouse, 1);
+      const d0 = s.data[i - 1], d1 = s.data[i];
+      if (!d0) return;
+      const d = d1 && (dateAtMouse - d0.date > d1.date - dateAtMouse) ? d1 : d0;
+      html += `<div class="tt-row"><span class="tt-label" style="color:${s.color}">${s.label}</span><span class="tt-val">${fmtY(d.value)}</span></div>`;
+    });
+    showTooltip(event, html);
+  });
+
+  overlay.on('mouseleave', function() {
+    crosshair.style('display', 'none');
+    hideTooltip();
+  });
+
+  const legend = el.append('div').attr('class', 'legend');
+  series.forEach(s => {
+    const item = legend.append('div').attr('class', 'legend-item');
+    item.append('div').attr('class', 'legend-swatch').style('background', s.color);
+    const last = s.data[s.data.length - 1];
+    item.append('span').text(`${s.label}: ${last ? fmtY(last.value) : '—'}`);
+  });
+}
+
+// Load data and render
+Promise.all([
+  fetch('./data/k-scope.json').then(r => r.json()),
+  fetch('./data/jobs-by-type.json').then(r => r.json()),
+])
+  .then(([data, jobsData]) => {
+    const S = data.series;
+
+    d3.select('#updated').text(`Last updated: ${new Date(data.generated).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`);
+
+    const sp500Change = ((lastVal(S.SP500.observations) / firstVal(S.SP500.observations)) * 100 - 100).toFixed(0);
+    const lfprChange = (lastVal(S.CIVPART.observations) - firstVal(S.CIVPART.observations)).toFixed(1);
+    const u6Now = lastVal(S.U6RATE.observations).toFixed(1);
+    const wageGap = (lastVal(S.CES0500000003.observations) - lastVal(S.CPIAUCSL.observations)).toFixed(1);
+
+    const statsBar = d3.select('#stats-bar');
+    [
+      { label: 'S&P 500 since 2019', value: `+${sp500Change}%`, cls: 'up' },
+      { label: 'LFPR change', value: `${lfprChange}pp`, cls: 'down' },
+      { label: 'Real unemployment (U-6)', value: `${u6Now}%`, cls: 'neg' },
+      { label: 'Wage − Inflation gap', value: `${wageGap > 0 ? '+' : ''}${wageGap}pp`, cls: wageGap > 0 ? 'up' : 'neg' },
+    ].forEach(s => {
+      const stat = statsBar.append('div').attr('class', 'stat');
+      stat.append('div').attr('class', 'label').text(s.label);
+      stat.append('div').attr('class', `value ${s.cls}`).text(s.value);
+    });
+
+    // Panel 1: K-Shape Hero
+    const kPanel = d3.select('#panel-k-shape');
+    kPanel.append('h3').text('The K-Shape');
+    kPanel.append('div').attr('class', 'panel-subtitle').text('Capital vs Labor — Indexed to January 2019 = 100');
+
+    buildChart({
+      container: '#panel-k-shape', height: 420, yFormat: '.0f', referenceLine: 100,
+      series: [
+        { id: 'SP500', label: 'S&P 500', color: COLORS.SP500, bold: true, data: indexSeries(S.SP500.observations, '2019-01-01') },
+        { id: 'CP', label: 'Corporate Profits', color: COLORS.CP, data: indexSeries(S.CP.observations, '2019-01-01') },
+        { id: 'CIVPART', label: 'Labor Force Participation', color: COLORS.CIVPART, bold: true, data: indexSeries(S.CIVPART.observations, '2019-01-01') },
+        { id: 'W270', label: 'Wages % of GDP', color: COLORS.W270RE1A156NBEA, dots: true, data: indexSeries(S.W270RE1A156NBEA.observations, '2019-01-01') },
+        { id: 'JTSHIR', label: 'Hires Rate', color: COLORS.JTSHIR_lower, data: indexSeries(S.JTSHIR.observations, '2019-01-01') },
+      ]
+    });
+    kPanel.append('div').attr('class', 'insight')
+      .text('Since 2019: S&P 500 up 164%, Corporate Profits up 75%. Meanwhile labor force participation permanently lower, hires rate at 15-year lows, labor\'s share of GDP flat.');
+
+    // Panel 2: Labor Market Reality
+    const laborPanel = d3.select('#panel-labor');
+    laborPanel.append('h3').text('Labor Market Reality');
+    laborPanel.append('div').attr('class', 'panel-subtitle').text('Three unemployment stories — same economy');
+
+    const notInLF = S.CIVPART.observations.map(o => ({ date: o.date, value: +(100 - o.value).toFixed(1) }));
+
+    buildChart({
+      container: '#panel-labor', height: 280, yFormat: '.1f',
+      series: [
+        { id: 'UNRATE', label: 'U-3 (headline)', color: COLORS.UNRATE, bold: true, data: makeDateObs(S.UNRATE.observations) },
+        { id: 'U6RATE', label: 'U-6 (real)', color: COLORS.U6RATE, data: makeDateObs(S.U6RATE.observations) },
+        { id: 'NILF', label: 'Not in labor force', color: COLORS.NOT_IN_LF, data: makeDateObs(notInLF) },
+      ]
+    });
+    laborPanel.append('div').attr('class', 'insight')
+      .text('"Unemployment is low" (U-3: 4.4%) and "participation never recovered" (LFPR still 1.1pp below 2019) are both true simultaneously.');
+
+    // Panel 3: Wage-Price Race
+    const wagePanel = d3.select('#panel-wage-price');
+    wagePanel.append('h3').text('The Wage-Price Race');
+    wagePanel.append('div').attr('class', 'panel-subtitle').text('Are workers gaining or losing ground?');
+
+    buildChart({
+      container: '#panel-wage-price', height: 280, yFormat: '.1f', fillBetween: [0, 1],
+      series: [
+        { id: 'CPI', label: 'CPI Inflation (YoY)', color: COLORS.CPIAUCSL, bold: true, data: makeDateObs(S.CPIAUCSL.observations) },
+        { id: 'WAGES', label: 'Wage Growth (YoY)', color: COLORS.CES0500000003, data: makeDateObs(S.CES0500000003.observations) },
+      ]
+    });
+    wagePanel.append('div').attr('class', 'insight')
+      .html('Green = wages outpacing inflation (workers gaining). Red = inflation eroding wages. Workers lost purchasing power through most of 2021&ndash;2023.');
+
+    // Panel 4: Ghost Jobs Gap
+    const ghostPanel = d3.select('#panel-ghost-jobs');
+    ghostPanel.append('h3').text('The Ghost Jobs Gap');
+    ghostPanel.append('div').attr('class', 'panel-subtitle').text('Openings vs actual hires');
+
+    buildChart({
+      container: '#panel-ghost-jobs', height: 280, yFormat: '.0f', referenceLine: 100,
+      series: [
+        { id: 'JTSJOL', label: 'Job Openings (indexed)', color: COLORS.JTSJOL, bold: true, data: indexSeries(S.JTSJOL.observations, '2019-01-01') },
+        { id: 'JTSHIR', label: 'Hires Rate (indexed)', color: COLORS.JTSHIR, bold: true, data: indexSeries(S.JTSHIR.observations, '2019-01-01') },
+      ]
+    });
+    ghostPanel.append('div').attr('class', 'insight')
+      .text('Job openings still near 2019 levels, but hires rate fell 15%. The gap suggests jobs that exist on paper but don\'t convert to actual employment.');
+
+    // Panel 5: Policy & Signals
+    const policyPanel = d3.select('#panel-policy');
+    policyPanel.append('h3').text('Policy & Leading Signals');
+    policyPanel.append('div').attr('class', 'panel-subtitle').text('Fed Funds Rate and yield curve');
+
+    buildChart({
+      container: '#panel-policy', height: 280, yFormat: '.1f', shadeBelowZero: true,
+      series: [
+        { id: 'FEDFUNDS', label: 'Fed Funds Rate', color: COLORS.FEDFUNDS, bold: true, data: makeDateObs(S.FEDFUNDS.observations) },
+        { id: 'T10Y2Y', label: '10Y-2Y Spread', color: COLORS.T10Y2Y, data: makeDateObs(S.T10Y2Y.observations) },
+      ]
+    });
+    policyPanel.append('div').attr('class', 'insight')
+      .text('The yield curve was inverted (10Y-2Y < 0) from July 2022 to September 2024 — the longest inversion in history. Historically a recession signal.');
+
+    // Panel 6: The Jobs K
+    if (jobsData && jobsData.employment) {
+      const E = jobsData.employment;
+      const W = jobsData.wages;
+
+      const sectorColors = {
+        'CES6562000001': COLORS.SECTOR_HEALTHCARE, 'CES4300000001': COLORS.SECTOR_TRANSPORT,
+        'CES6054000001': COLORS.SECTOR_PROTECH, 'USCONS': COLORS.SECTOR_CONSTRUCTION,
+        'PAYEMS': COLORS.SECTOR_TOTAL, 'CES5552000001': COLORS.SECTOR_FINANCE,
+        'USLAH': COLORS.SECTOR_LEISURE, 'USTRADE': COLORS.SECTOR_RETAIL,
+        'MANEMP': COLORS.SECTOR_MFGR, 'USINFO': COLORS.SECTOR_INFO,
+        'CES1021000001': COLORS.SECTOR_MINING, 'TEMPHELPS': COLORS.SECTOR_TEMP,
+      };
+
+      const showSectors = [
+        'CES6562000001', 'CES4300000001', 'CES6054000001', 'USCONS',
+        'PAYEMS', 'USLAH', 'USTRADE', 'MANEMP', 'USINFO',
+        'CES1021000001', 'TEMPHELPS'
+      ];
+
+      const jobsSeries = showSectors.filter(id => E[id]).map(id => ({
+        id, label: E[id].label, color: sectorColors[id] || '#a0a0b0',
+        bold: id === 'PAYEMS' || id === 'TEMPHELPS',
+        opacity: id === 'PAYEMS' ? 1 : (id === 'TEMPHELPS' ? 1 : 0.7),
+        data: E[id].observations.map(o => ({ date: parseDate(o.date), value: o.indexed }))
+      }));
+
+      const jobsKPanel = d3.select('#panel-jobs-k');
+      jobsKPanel.append('h3').text('The Jobs K');
+      jobsKPanel.append('div').attr('class', 'panel-subtitle')
+        .text('Sector employment indexed to January 2020 = 100 — who recovered, who didn\'t');
+
+      buildChart({ container: '#panel-jobs-k', height: 420, yFormat: '.0f', referenceLine: 100, series: jobsSeries });
+
+      const latestVals = showSectors.filter(id => E[id]).map(id => {
+        const obs = E[id].observations;
+        return { label: E[id].label, val: obs[obs.length - 1].indexed };
+      });
+      const best = latestVals.reduce((a, b) => a.val > b.val ? a : b);
+      const worst = latestVals.reduce((a, b) => a.val < b.val ? a : b);
+      const kSpread = (best.val - worst.val).toFixed(1);
+
+      jobsKPanel.append('div').attr('class', 'insight')
+        .text(`K-Spread: ${kSpread} points. ${best.label} (${best.val.toFixed(1)}) vs ${worst.label} (${worst.val.toFixed(1)}). `
+          + 'Temp help\'s -16% decline is structural — this isn\'t a COVID recovery story anymore, it\'s automation displacement. '
+          + 'The white line (total nonfarm) hides a 30-point divergence underneath.');
+
+      // Panel 6b: Jobs vs Wages Crossover
+      const crossoverPanel = d3.select('#panel-jobs-wages');
+      crossoverPanel.append('h3').text('Jobs vs Wages Crossover');
+      crossoverPanel.append('div').attr('class', 'panel-subtitle').text('Employment change vs wage growth since Jan 2020');
+
+      const crossPairs = [
+        { name: 'Healthcare', empId: 'CES6562000001', wageId: 'CES6500000003' },
+        { name: 'Leisure & Hosp.', empId: 'USLAH', wageId: 'CES7000000003' },
+        { name: 'Manufacturing', empId: 'MANEMP', wageId: 'CES3000000003' },
+        { name: 'Finance', empId: 'CES5552000001', wageId: 'CES5500000003' },
+      ];
+
+      const crossData = crossPairs.map(p => {
+        const empObs = E[p.empId]?.observations;
+        const wageObs = W[p.wageId]?.observations;
+        return {
+          name: p.name,
+          jobs: empObs ? empObs[empObs.length - 1].indexed - 100 : 0,
+          wages: wageObs ? wageObs[wageObs.length - 1].indexed - 100 : 0,
+        };
+      });
+
+      const crossEl = d3.select('#panel-jobs-wages');
+      const crossRect = crossEl.node().getBoundingClientRect();
+      const cm = { top: 20, right: 30, bottom: 30, left: 120 };
+      const cw = Math.max(crossRect.width - 32, 300);
+      const ch = 260;
+
+      const crossSvg = crossEl.append('div').attr('class', 'chart-container')
+        .append('svg').attr('viewBox', `0 0 ${cw} ${ch}`).attr('preserveAspectRatio', 'xMidYMid meet');
+
+      const cg = crossSvg.append('g');
+
+      const yBand = d3.scaleBand()
+        .domain(crossData.map(d => d.name))
+        .range([cm.top, ch - cm.bottom]).padding(0.35);
+
+      const maxCrossVal = d3.max(crossData, d => Math.max(Math.abs(d.jobs), Math.abs(d.wages)));
+      const xCross = d3.scaleLinear()
+        .domain([-Math.max(maxCrossVal, 5), Math.max(maxCrossVal * 1.1, 5)])
+        .range([cm.left, cw - cm.right]);
+
+      cg.append('line')
+        .attr('x1', xCross(0)).attr('x2', xCross(0))
+        .attr('y1', cm.top).attr('y2', ch - cm.bottom)
+        .attr('stroke', '#4a4a5a').attr('stroke-dasharray', '4,4');
+
+      const barH = yBand.bandwidth() / 2 - 1;
+
+      crossData.forEach(d => {
+        const yPos = yBand(d.name);
+        cg.append('rect')
+          .attr('x', d.jobs >= 0 ? xCross(0) : xCross(d.jobs))
+          .attr('y', yPos)
+          .attr('width', Math.abs(xCross(d.jobs) - xCross(0)))
+          .attr('height', barH)
+          .attr('fill', '#22d3ee').attr('rx', 2);
+        cg.append('rect')
+          .attr('x', xCross(0))
+          .attr('y', yPos + barH + 2)
+          .attr('width', Math.abs(xCross(d.wages) - xCross(0)))
+          .attr('height', barH)
+          .attr('fill', '#34d399').attr('rx', 2);
+        cg.append('text')
+          .attr('x', d.jobs >= 0 ? xCross(d.jobs) + 4 : xCross(d.jobs) - 4)
+          .attr('y', yPos + barH / 2).attr('dy', '0.35em')
+          .attr('text-anchor', d.jobs >= 0 ? 'start' : 'end')
+          .attr('fill', '#22d3ee').attr('font-size', '11px')
+          .attr('font-family', "'JetBrains Mono', monospace")
+          .text(`${d.jobs >= 0 ? '+' : ''}${d.jobs.toFixed(1)}%`);
+        cg.append('text')
+          .attr('x', xCross(d.wages) + 4)
+          .attr('y', yPos + barH + 2 + barH / 2).attr('dy', '0.35em')
+          .attr('text-anchor', 'start')
+          .attr('fill', '#34d399').attr('font-size', '11px')
+          .attr('font-family', "'JetBrains Mono', monospace")
+          .text(`+${d.wages.toFixed(1)}%`);
+      });
+
+      cg.append('g').attr('class', 'axis')
+        .attr('transform', `translate(${cm.left},0)`)
+        .call(d3.axisLeft(yBand).tickSize(0))
+        .select('.domain').remove();
+
+      cg.append('g').attr('class', 'axis')
+        .attr('transform', `translate(0,${ch - cm.bottom})`)
+        .call(d3.axisBottom(xCross).ticks(5).tickFormat(d => `${d >= 0 ? '+' : ''}${d.toFixed(0)}%`));
+
+      const crossLeg = crossEl.append('div').attr('class', 'legend');
+      [{ color: '#22d3ee', label: 'Employment change' }, { color: '#34d399', label: 'Wage growth' }].forEach(l => {
+        const item = crossLeg.append('div').attr('class', 'legend-item');
+        item.append('div').attr('class', 'legend-swatch').style('background', l.color);
+        item.append('span').text(l.label);
+      });
+
+      crossoverPanel.append('div').attr('class', 'insight')
+        .text('Leisure: barely recovered jobs (+0.6%) but wages surged +39% — labor scarcity premium. Manufacturing: losing jobs AND paying more — classic automation substitution signal.');
+
+      // Panel 6c: Temp Help Canary
+      if (E.TEMPHELPS) {
+        const canaryPanel = d3.select('#panel-canary');
+        canaryPanel.append('h3').text('The Canary: Temp Help');
+        canaryPanel.append('div').attr('class', 'panel-subtitle')
+          .text('Temporary help services employment — the leading indicator');
+
+        const tempObs = E.TEMPHELPS.observations.map(o => ({ date: parseDate(o.date), value: o.indexed }));
+        const totalObs = E.PAYEMS.observations.map(o => ({ date: parseDate(o.date), value: o.indexed }));
+
+        buildChart({
+          container: '#panel-canary', height: 260, yFormat: '.0f', referenceLine: 100,
+          series: [
+            { id: 'PAYEMS', label: 'Total Nonfarm', color: '#dcdce4', bold: false, opacity: 0.5, data: totalObs },
+            { id: 'TEMPHELPS', label: 'Temp Help Services', color: COLORS.SECTOR_TEMP, bold: true, data: tempObs },
+          ]
+        });
+
+        const tempLatest = tempObs[tempObs.length - 1].value;
+        canaryPanel.append('div').attr('class', 'insight')
+          .text(`Temp help at ${tempLatest.toFixed(1)} (Jan 2020 = 100) — down 16% while total nonfarm is up 4%. `
+            + 'Temp workers are the first displaced by automation and the first cut in slowdowns. '
+            + 'This structural decline began in mid-2022 and shows no reversal.');
+      }
+    }
+
+    // Panel 7: The Wealth Divide
+    if (S.WFRBST01134 && S.WFRBSB50215) {
+      const wealthPanel = d3.select('#panel-wealth');
+      wealthPanel.append('h3').text('The Wealth Divide');
+      wealthPanel.append('div').attr('class', 'panel-subtitle').text('Share of US net worth — Top 1% vs Bottom 50%');
+
+      buildChart({
+        container: '#panel-wealth', height: 340, yFormat: '.1f',
+        series: [
+          { id: 'TOP1', label: 'Top 1% net worth share', color: COLORS.WEALTH_TOP, bold: true, data: makeDateObs(S.WFRBST01134.observations) },
+          { id: 'BOT50', label: 'Bottom 50% net worth share', color: COLORS.WEALTH_BOTTOM, bold: true, data: makeDateObs(S.WFRBSB50215.observations) },
+        ]
+      });
+
+      const top1Last = lastVal(S.WFRBST01134.observations);
+      const bot50Last = lastVal(S.WFRBSB50215.observations);
+      const ratio = (top1Last / bot50Last).toFixed(0);
+      wealthPanel.append('div').attr('class', 'insight')
+        .text(`The top 1% holds ${top1Last.toFixed(1)}% of all US net worth. The bottom 50% holds ${bot50Last.toFixed(1)}%. That\'s a ${ratio}:1 ratio — the K made concrete.`);
+    }
+
+  })
+  .catch(err => {
+    document.querySelector('.k-scope').innerHTML = `<div style="color:#f87171;padding:2rem;font-family:'JetBrains Mono',monospace;font-size:14px;">Error loading data: ${err.message}<br>Make sure data files are in ./data/</div>`;
+  });
+</script>
+</body>
+</html>

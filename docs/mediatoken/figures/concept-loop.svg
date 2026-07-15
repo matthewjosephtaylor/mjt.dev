@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">The MediaToken attention loop</title>
+<desc id="desc">A creator publishes an immutable release, people collect its token and bytes, personal libraries distribute it, curation brings new attention, and value flows to the creator and early community.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1020"/><stop offset="1" stop-color="#1a2946"/></linearGradient>
+ <linearGradient id="center" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff795d"/><stop offset="1" stop-color="#ffc66c"/></linearGradient>
+ <filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity=".24"/></filter>
+ <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#76d9bb"/></marker>
+</defs>
+<rect width="1200" height="720" rx="30" fill="url(#bg)"/>
+<text x="72" y="66" fill="#fff" font-family="system-ui,sans-serif" font-size="31" font-weight="800">A work becomes an attention market</text>
+<text x="72" y="102" fill="#aebed2" font-family="system-ui,sans-serif" font-size="18">The creator and audience build the economic and cultural layer together.</text>
+<g fill="none" stroke="#76d9bb" stroke-width="4" marker-end="url(#arrow)" opacity=".88">
+ <path d="M337 214 C445 145 588 137 690 185"/>
+ <path d="M916 244 C993 300 1000 391 943 459"/>
+ <path d="M805 555 C670 630 486 623 367 560"/>
+ <path d="M252 480 C183 407 187 306 248 240"/>
+</g>
+<g filter="url(#s)" font-family="system-ui,sans-serif">
+ <rect x="73" y="152" width="300" height="128" rx="24" fill="#162a48" stroke="#6aa9ff"/>
+ <circle cx="126" cy="202" r="26" fill="#6aa9ff"/>
+ <path d="M115 207h22M126 196v22" stroke="#0b1020" stroke-width="5" stroke-linecap="round"/>
+ <text x="169" y="197" fill="#fff" font-size="25" font-weight="750">1 · Release</text>
+ <text x="108" y="239" fill="#b9c8dc" font-size="17">Creator signs one immutable work</text>
+
+ <rect x="701" y="152" width="425" height="137" rx="24" fill="#162a48" stroke="#c88df3"/>
+ <circle cx="755" cy="203" r="26" fill="#c88df3"/>
+ <path d="M744 203h22M755 192v22" stroke="#0b1020" stroke-width="5" stroke-linecap="round"/>
+ <text x="798" y="198" fill="#fff" font-size="25" font-weight="750">2 · Collect</text>
+ <text x="735" y="239" fill="#b9c8dc" font-size="17">Own the token, the local copy, or both</text>
+ <text x="735" y="263" fill="#8fa5c0" font-size="14">position in attention · direct possession of bits</text>
+
+ <rect x="760" y="455" width="366" height="145" rx="24" fill="#162a48" stroke="#60dfb5"/>
+ <circle cx="813" cy="507" r="26" fill="#60dfb5"/>
+ <path d="M802 507h22M813 496v22" stroke="#0b1020" stroke-width="5" stroke-linecap="round"/>
+ <text x="856" y="502" fill="#fff" font-size="25" font-weight="750">3 · Keep &amp; share</text>
+ <text x="794" y="543" fill="#b9c8dc" font-size="17">Personal libraries exchange via IPFS</text>
+ <text x="794" y="569" fill="#8fa5c0" font-size="14">voluntary · local · no storage bureaucracy</text>
+
+ <rect x="71" y="451" width="354" height="149" rx="24" fill="#162a48" stroke="#ffc66c"/>
+ <circle cx="124" cy="503" r="26" fill="#ffc66c"/>
+ <path d="M113 503h22M124 492v22" stroke="#0b1020" stroke-width="5" stroke-linecap="round"/>
+ <text x="167" y="498" fill="#fff" font-size="25" font-weight="750">4 · Curate</text>
+ <text x="104" y="540" fill="#b9c8dc" font-size="17">Recommend, discuss, and organize</text>
+ <text x="104" y="568" fill="#8fa5c0" font-size="14">new attention enters the work's market</text>
+
+ <circle cx="600" cy="357" r="132" fill="url(#center)"/>
+ <circle cx="600" cy="357" r="111" fill="#111a2d" opacity=".94"/>
+ <text x="600" y="324" text-anchor="middle" fill="#ff8b6b" font-size="17" font-weight="800" letter-spacing="2">VALUE RETURNS TO</text>
+ <text x="600" y="366" text-anchor="middle" fill="#fff" font-size="31" font-weight="850">CREATOR</text>
+ <text x="600" y="400" text-anchor="middle" fill="#fff" font-size="22" font-weight="700">+ EARLY COMMUNITY</text>
+</g>
+<rect x="205" y="651" width="790" height="40" rx="20" fill="#152743" stroke="#40536d"/>
+<text x="600" y="677" text-anchor="middle" fill="#c6d2e2" font-family="system-ui,sans-serif" font-size="15">Creator fees · early-curator upside · community resources · more creative work</text>
+</svg>

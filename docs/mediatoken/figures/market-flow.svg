@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">MediaToken attention market and fee flow</title>
+<desc id="desc">Early supporters take a position on a reserve curve; later demand moves the quote, while explicit fees flow to creator, community, and protocol.</desc>
+<defs>
+ <linearGradient id="mBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0e1629"/><stop offset="1" stop-color="#16233c"/></linearGradient>
+ <linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffc66c" stop-opacity=".62"/><stop offset="1" stop-color="#ffc66c" stop-opacity=".05"/></linearGradient>
+ <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9db0c9"/></marker>
+</defs>
+<rect width="1200" height="720" rx="28" fill="url(#mBg)"/>
+<text x="70" y="72" fill="#fff" font-family="system-ui,sans-serif" font-size="31" font-weight="800">Attention becomes an economic position</text>
+<text x="70" y="108" fill="#aebed2" font-family="system-ui,sans-serif" font-size="18">Earlier conviction enters lower on the curve; wider demand can move the redeemable quote upward.</text>
+<g transform="translate(70 165)">
+ <line x1="0" y1="310" x2="515" y2="310" stroke="#71839b" stroke-width="2"/>
+ <line x1="0" y1="310" x2="0" y2="5" stroke="#71839b" stroke-width="2"/>
+ <path d="M0 270 L485 30 L485 310 L0 310 Z" fill="url(#area)"/>
+ <path d="M0 270 L485 30" fill="none" stroke="#ffc66c" stroke-width="5"/>
+ <line x1="150" y1="197" x2="150" y2="310" stroke="#6aa9ff" stroke-width="3" stroke-dasharray="7 6"/>
+ <line x1="385" y1="80" x2="385" y2="310" stroke="#60dfb5" stroke-width="3" stroke-dasharray="7 6"/>
+ <circle cx="150" cy="197" r="9" fill="#6aa9ff"/>
+ <circle cx="385" cy="80" r="9" fill="#60dfb5"/>
+ <text x="110" y="175" fill="#9bc4ff" font-family="system-ui,sans-serif" font-size="15" font-weight="700">EARLY</text>
+ <text x="398" y="75" fill="#8ce7ca" font-family="system-ui,sans-serif" font-size="15" font-weight="700">LATER DEMAND</text>
+ <text x="240" y="266" text-anchor="middle" fill="#ffe0a4" font-family="system-ui,sans-serif" font-size="17">reserve backs redemption</text>
+ <text x="505" y="338" text-anchor="end" fill="#9db0c9" font-family="system-ui,sans-serif" font-size="16">committed supply</text>
+ <text x="-18" y="8" text-anchor="end" transform="rotate(-90 -18 8)" fill="#9db0c9" font-family="system-ui,sans-serif" font-size="16">marginal quote</text>
+</g>
+<g font-family="system-ui,sans-serif">
+ <rect x="665" y="158" width="216" height="83" rx="18" fill="#1a2c48" stroke="#6aa9ff"/>
+ <text x="773" y="192" text-anchor="middle" fill="#fff" font-size="21" font-weight="750">Participant</text>
+ <text x="773" y="220" text-anchor="middle" fill="#aebed2" font-size="15">curve principal + fees</text>
+ <path d="M773 242v68" stroke="#9db0c9" stroke-width="3" marker-end="url(#a)"/>
+ <rect x="645" y="315" width="256" height="103" rx="20" fill="#1a2c48" stroke="#ffc66c"/>
+ <text x="773" y="352" text-anchor="middle" fill="#fff" font-size="21" font-weight="750">Reserve vault</text>
+ <text x="773" y="381" text-anchor="middle" fill="#ffc66c" font-size="17">exact curve principal</text>
+ <text x="773" y="405" text-anchor="middle" fill="#aebed2" font-size="14">never creator revenue</text>
+ <path d="M904 366h91" stroke="#9db0c9" stroke-width="3" marker-end="url(#a)"/>
+ <rect x="1000" y="315" width="145" height="103" rx="20" fill="#1a2c48" stroke="#60dfb5"/>
+ <text x="1072" y="351" text-anchor="middle" fill="#fff" font-size="20" font-weight="750">Seller</text>
+ <text x="1072" y="380" text-anchor="middle" fill="#aebed2" font-size="15">burns token</text>
+ <text x="1072" y="404" text-anchor="middle" fill="#60dfb5" font-size="14">realizes quote</text>
+ <path d="M884 202 H925 V552 H940" fill="none" stroke="#9db0c9" stroke-width="3" marker-end="url(#a)"/>
+ <rect x="946" y="455" width="199" height="190" rx="20" fill="#15243c" stroke="#8090a6"/>
+ <text x="1045" y="490" text-anchor="middle" fill="#fff" font-size="20" font-weight="750">Explicit fees</text>
+ <rect x="972" y="510" width="147" height="32" rx="16" fill="#ffe7e0"/><text x="1045" y="532" text-anchor="middle" fill="#944631" font-size="14" font-weight="700">CREATOR</text>
+ <rect x="972" y="552" width="147" height="32" rx="16" fill="#fff1d8"/><text x="1045" y="574" text-anchor="middle" fill="#85601f" font-size="14" font-weight="700">COMMUNITY</text>
+ <rect x="972" y="594" width="147" height="32" rx="16" fill="#e5efff"/><text x="1045" y="616" text-anchor="middle" fill="#315d99" font-size="14" font-weight="700">PROTOCOL</text>
+</g>
+<rect x="70" y="584" width="810" height="76" rx="17" fill="#172942" stroke="#40536d"/>
+<text x="96" y="615" fill="#ffb15a" font-family="system-ui,sans-serif" font-size="17" font-weight="800">THE INTENDED REWARD</text>
+<text x="96" y="644" fill="#d8e1ec" font-family="system-ui,sans-serif" font-size="17">Recognize worthwhile attention early; share the upside if wider demand follows.</text>
+</svg>

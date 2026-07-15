@@ -1,0 +1,1831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="author" content="Matthew J. Taylor">
+<meta name="description" content="A creator-and-community attention economy built on Solana, with IPFS as its content transport">
+<meta name="keywords" content="creator economy, attention markets, digital media, IPFS, Solana, bonding curves, curation">
+<meta name="citation_title" content="MediaToken: Own the attention. Keep the work.">
+<meta name="citation_author" content="Matthew J. Taylor">
+<meta name="citation_publication_date" content="2026-07-15">
+<meta name="citation_pdf_url" content="https://mjt.dev/mediatoken/mediatoken-whitepaper.pdf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MediaToken: Own the attention. Keep the work.">
+<meta property="og:description" content="A creator-and-community attention economy built on Solana, with IPFS as its content transport">
+<meta property="og:url" content="https://mjt.dev/mediatoken/">
+<meta property="og:image" content="https://mjt.dev/mediatoken/mediatoken-whitepaper-cover.png">
+<meta property="article:author" content="https://mjt.dev/">
+<meta property="article:published_time" content="2026-07-15">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MediaToken: Own the attention. Keep the work.">
+<meta name="twitter:description" content="A creator-and-community attention economy built on Solana, with IPFS as its content transport">
+<meta name="twitter:image" content="https://mjt.dev/mediatoken/mediatoken-whitepaper-cover.png">
+<link rel="canonical" href="https://mjt.dev/mediatoken/">
+<link rel="author" href="https://mjt.dev/">
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+<title>MediaToken — Matthew J. Taylor</title>
+<style>:root {
+  --ink: #111827;
+  --muted: #5c6778;
+  --line: #d9dee7;
+  --paper: #fffefa;
+  --canvas: #e9edf3;
+  --navy: #0b1020;
+  --navy-2: #17233f;
+  --coral: #ff795d;
+  --amber: #ffc66c;
+  --mint: #60dfb5;
+  --blue: #6aa9ff;
+  --purple: #c88df3;
+  --soft-blue: #edf4ff;
+  --soft-amber: #fff5df;
+  --soft-mint: #e7faf4;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  color: var(--ink);
+  font-size: 17px;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.66;
+}
+
+.paper {
+  width: min(100%, 1020px);
+  margin: 28px auto;
+  padding: 0 84px 90px;
+  background: var(--paper);
+  box-shadow: 0 18px 70px rgba(20, 31, 53, .14);
+  overflow: hidden;
+}
+
+.title-page {
+  position: relative;
+  min-height: 900px;
+  margin: 0 -84px 76px;
+  padding: 86px 84px 70px;
+  overflow: hidden;
+  color: white;
+  background:
+    radial-gradient(circle at 82% 16%, rgba(106, 169, 255, .28), transparent 27%),
+    radial-gradient(circle at 16% 84%, rgba(96, 223, 181, .17), transparent 30%),
+    linear-gradient(145deg, var(--navy), var(--navy-2));
+  page-break-after: always;
+  break-after: page;
+}
+
+.title-page::before,
+.title-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.16);
+}
+.title-page::before {
+  width: 520px;
+  height: 520px;
+  right: -205px;
+  top: 90px;
+}
+.title-page::after {
+  width: 310px;
+  height: 310px;
+  right: -70px;
+  top: 195px;
+  border-color: rgba(255,198,108,.38);
+}
+
+.brand-mark {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 750 13px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #cad7e9;
+}
+.brand-mark i {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-block;
+  background: linear-gradient(135deg, var(--coral), var(--amber));
+  box-shadow: inset 0 0 0 6px rgba(11,16,32,.36);
+}
+
+.cover-copy {
+  position: relative;
+  z-index: 2;
+  width: 82%;
+  margin-top: 132px;
+}
+.cover-kicker {
+  margin: 0 0 24px;
+  font: 750 13px/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+.cover-title {
+  margin: 0;
+  max-width: 760px;
+  color: white;
+  font: 850 clamp(58px, 9vw, 98px)/.92 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -.065em;
+}
+.cover-subtitle {
+  margin: 24px 0 14px;
+  color: var(--amber);
+  font: 700 30px/1.15 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -.02em;
+}
+.cover-dek {
+  max-width: 700px;
+  margin: 0;
+  color: #c4d0e0;
+  font: 400 20px/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+.cover-author {
+  margin: 22px 0 0;
+  color: #e4ebf5;
+  font: 650 16px/1.4 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .02em;
+}
+.cover-author a { color: var(--mint); }
+.cover-meta {
+  position: absolute;
+  z-index: 2;
+  left: 84px;
+  right: 84px;
+  bottom: 66px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,.2);
+  padding-top: 22px;
+  color: #aebed2;
+  font: 600 12px/1.5 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.cover-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 430px;
+}
+.cover-pills span {
+  padding: 8px 11px;
+  color: #dce6f3;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 999px;
+  letter-spacing: .08em;
+}
+
+.paper-notice {
+  margin: 0 0 18px;
+  padding: 20px 24px;
+  border: 1px solid #f0c6b8;
+  border-left: 6px solid var(--coral);
+  border-radius: 5px 14px 14px 5px;
+  background: #fff7f4;
+  color: #533d38;
+  font: 500 14px/1.55 ui-sans-serif, system-ui, sans-serif;
+}
+.publication-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 0 0 52px;
+  color: #667287;
+  font: 600 12px/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+.publication-info strong {
+  color: #303b4d;
+  margin-right: 4px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+h1, h2, h3, h4 {
+  color: var(--navy);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.13;
+  letter-spacing: -.025em;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+h1 {
+  margin: 82px 0 30px;
+  padding-top: 30px;
+  border-top: 4px solid var(--navy);
+  font-size: 44px;
+  font-weight: 850;
+}
+h1::before {
+  content: "";
+  display: block;
+  width: 74px;
+  height: 8px;
+  margin: -42px 0 26px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--coral), var(--amber));
+}
+h2 {
+  margin: 50px 0 18px;
+  font-size: 29px;
+  font-weight: 800;
+}
+h3 {
+  margin: 36px 0 12px;
+  font-size: 21px;
+  font-weight: 800;
+}
+.anchor {
+  margin-left: .35em;
+  color: #9aa9bc;
+  font-size: .55em;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0;
+}
+h1:hover .anchor, h2:hover .anchor, h3:hover .anchor,
+.anchor:focus { opacity: 1; }
+
+p { margin: 0 0 19px; }
+strong { color: #121a2b; }
+a {
+  color: #245f9f;
+  text-decoration-color: #9fbddd;
+  text-underline-offset: .15em;
+}
+a:hover { color: #163f6c; }
+
+blockquote {
+  position: relative;
+  margin: 32px 0;
+  padding: 28px 32px 28px 72px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--soft-blue), #f7faff);
+  color: #182840;
+  font-size: 22px;
+  line-height: 1.45;
+}
+blockquote::before {
+  content: "“";
+  position: absolute;
+  left: 25px;
+  top: 15px;
+  color: var(--blue);
+  font: 700 56px/1 Georgia, serif;
+}
+blockquote p:last-child { margin: 0; }
+
+ul, ol { padding-left: 1.35em; margin: 0 0 22px; }
+li { margin: 7px 0; padding-left: .2em; }
+li::marker { color: #526f97; }
+
+code {
+  padding: .12em .35em;
+  border: 1px solid #e0e5ed;
+  border-radius: 5px;
+  background: #f5f7fa;
+  color: #993e2c;
+  font: .86em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+pre {
+  overflow-x: auto;
+  margin: 25px 0 32px;
+  padding: 23px 25px;
+  border-radius: 14px;
+  background: #101a2d;
+  color: #e4edf8;
+  font: 13.5px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  page-break-inside: avoid;
+}
+pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.equation {
+  margin: 24px auto 30px;
+  padding: 18px 24px;
+  border: 1px solid #dbe2eb;
+  border-left: 5px solid var(--amber);
+  border-radius: 8px 14px 14px 8px;
+  background: #fafbfd;
+  color: #121d32;
+  text-align: center;
+  font: 600 21px/1.45 ui-serif, Georgia, serif;
+  page-break-inside: avoid;
+}
+.equation.compact {
+  font-size: 18px;
+  letter-spacing: .01em;
+}
+
+figure,
+p:has(> img) {
+  margin: 36px 0 12px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 13px;
+}
+p:has(> img) + p > em:only-child {
+  display: block;
+  margin: 0 0 34px;
+  color: var(--muted);
+  font: 500 13.5px/1.45 ui-sans-serif, system-ui, sans-serif;
+}
+
+table {
+  width: 100%;
+  margin: 26px 0 34px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  font: 14px/1.46 ui-sans-serif, system-ui, sans-serif;
+  page-break-inside: auto;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th {
+  padding: 12px 13px;
+  background: var(--navy);
+  color: white;
+  text-align: left;
+  font-weight: 750;
+}
+td {
+  padding: 11px 13px;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+}
+tbody tr:nth-child(even) td { background: #f6f8fb; }
+
+#table-of-contents {
+  margin: 40px 0 72px;
+  padding: 34px 38px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fafbfc, #f1f5fa);
+}
+#table-of-contents h2 {
+  margin: 0 0 22px;
+  font-size: 16px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+#table-of-contents ol {
+  columns: 2;
+  column-gap: 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: toc;
+}
+#table-of-contents li {
+  position: relative;
+  margin: 0 0 10px;
+  padding: 0 0 10px 29px;
+  border-bottom: 1px solid #dfe4eb;
+  break-inside: avoid;
+  counter-increment: toc;
+  font: 650 14px/1.35 ui-sans-serif, system-ui, sans-serif;
+}
+#table-of-contents li::before {
+  content: counter(toc, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  color: #8492a7;
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+#table-of-contents a { color: #263b5c; text-decoration: none; }
+
+.footnotes {
+  margin-top: 48px;
+  padding-top: 26px;
+  border-top: 2px solid var(--line);
+  color: #465164;
+  font: 12.5px/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+.footnotes hr { display: none; }
+.footnotes li { margin-bottom: 10px; }
+.footnote-ref, .footnote-backref {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.build-stamp {
+  margin-top: 70px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: #7a8697;
+  font: 11px/1.5 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  html { font-size: 16px; }
+  .paper { margin: 0; padding: 0 24px 60px; width: 100%; }
+  .title-page { min-height: 780px; margin: 0 -24px 54px; padding: 54px 30px; }
+  .cover-copy { width: 100%; margin-top: 100px; }
+  .cover-title { font-size: 58px; }
+  .cover-subtitle { font-size: 25px; }
+  .cover-dek { font-size: 18px; }
+  .cover-author { font-size: 15px; }
+  .cover-meta { left: 30px; right: 30px; bottom: 44px; display: block; }
+  .cover-pills { display: none; }
+  h1 { font-size: 34px; }
+  h2 { font-size: 25px; }
+  #table-of-contents { padding: 26px; }
+  #table-of-contents ol { columns: 1; }
+  table { display: block; overflow-x: auto; }
+}
+
+@page {
+  size: Letter;
+  margin: .62in .68in .7in;
+}
+
+@media print {
+  :root { --paper: white; }
+  html { font-size: 10pt; }
+  body { background: white; line-height: 1.55; }
+  .paper {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .title-page {
+    height: 9.5in;
+    min-height: 9.5in;
+    margin: 0;
+    padding: .65in .6in .55in;
+  }
+  .cover-copy { margin-top: 1.35in; width: 88%; }
+  .cover-title { font-size: 67pt; break-before: auto; page-break-before: auto; }
+  .cover-subtitle { font-size: 24pt; }
+  .cover-dek { font-size: 14pt; }
+  .cover-meta { left: .6in; right: .6in; bottom: .48in; }
+  .paper-notice { margin-top: 0; }
+  h1 {
+    margin-top: 0;
+    padding-top: 26px;
+    font-size: 28pt;
+    break-before: page;
+    page-break-before: always;
+  }
+  h1::before { margin-top: -38px; }
+  h2 { margin-top: 32px; font-size: 18pt; }
+  h3 { font-size: 14pt; }
+  p { orphans: 3; widows: 3; }
+  a { color: #245f9f; }
+  blockquote { font-size: 15pt; }
+  table { font-size: 8pt; }
+  th, td { padding: 7px 8px; }
+  img { max-height: 7.3in; object-fit: contain; }
+  #table-of-contents { margin-bottom: 0; }
+  #table-of-contents ol { columns: 2; }
+  .equation { font-size: 13pt; }
+  .anchor { display: none; }
+}
+</style>
+</head>
+<body>
+<main class="paper">
+
+<section class="title-page">
+  <div class="brand-mark"><i aria-hidden="true"></i> protocol concept</div>
+  <div class="cover-copy">
+    <p class="cover-kicker">Discussion draft 0.2 · July 2026</p>
+    <h1 class="cover-title">MediaToken</h1>
+    <p class="cover-subtitle">Own the attention. Keep the work.</p>
+    <p class="cover-dek">A creator-and-community attention economy built on Solana, with IPFS as its content transport</p>
+    <p class="cover-author">Matthew J. Taylor · <a href="https://mjt.dev/">mjt.dev</a></p>
+  </div>
+  <div class="cover-meta">
+    <div>Concept paper — not an offering<br>Provisional working name · CC BY 4.0</div>
+    <div class="cover-pills">
+      <span>Creators</span><span>Attention</span><span>Libraries</span><span>Community</span>
+    </div>
+  </div>
+</section>
+
+<div class="paper-notice">
+<strong>Purpose.</strong> This document describes a technical concept and research program. It is not an offer to sell tokens, investment advice, a promise of return, or a claim that the proposed market is implemented, audited, or legally compliant. <strong>MediaToken</strong> is a provisional working name.
+</div>
+<div class="publication-info">
+<span><strong>Author</strong> <a href="https://mjt.dev/">Matthew J. Taylor</a></span>
+<span><strong>Canonical edition</strong> <a href="https://mjt.dev/mediatoken/">mjt.dev/mediatoken</a></span>
+<span><strong>License</strong> <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+</div>
+<h2 id="abstract">Abstract<a class="anchor" href="#abstract" aria-label="Link to this section">#</a></h2>
+<p>Creative work produces attention. That attention has economic value, but today's platforms capture most of it. Creators receive a fraction through advertising, subscriptions, or platform-controlled payouts. Audiences create the rest through discovery, recommendation, conversation, collecting, and distribution—usually without ownership of the value they helped produce.</p>
+<p>MediaToken proposes a different arrangement. Each immutable release—a song, film, essay, game, image, or bundle—can have:</p>
+<ol>
+<li>a signed, content-addressed identity;</li>
+<li>a fungible token representing a transferable position in the attention around that release;</li>
+<li>a transparent market that rewards the creator and gives early participants exposure to later demand;</li>
+<li>an open social graph for curation and community; and</li>
+<li>actual media bytes held in user-controlled local libraries and exchanged over IPFS.</li>
+</ol>
+<p>IPFS is not the product and this is not a storage marketplace. People keep the works they care about because they want them. Their overlapping libraries become the distribution network. No one must register a disk, prove a pin, meter bandwidth, or earn a hosting payment.</p>
+<p>The central proposal is deliberately bold:</p>
+<blockquote>
+<p>Audiences should be able to capitalize the attention they help create instead of donating all of it to a platform.</p>
+</blockquote>
+<p>A MediaToken does not convey copyright, exclusive ownership of media, control over a creator, or ownership of anyone else's attention. It is an economic and social position associated with one cultural object. Its value can rise or fall with demand. That creates opportunity, speculation, and legal risk; all three must be described honestly.</p>
+<nav id="table-of-contents" aria-label="Table of contents"><h2>Contents</h2><ol><li><a href="#1-the-idea-in-two-minutes">1. The idea in two minutes</a></li>
+<li><a href="#2-why-this-should-exist">2. Why this should exist</a></li>
+<li><a href="#3-what-ownership-means">3. What “ownership” means</a></li>
+<li><a href="#4-design-principles-and-non-goals">4. Design principles and non-goals</a></li>
+<li><a href="#5-system-architecture">5. System architecture</a></li>
+<li><a href="#6-the-immutable-release">6. The immutable release</a></li>
+<li><a href="#7-the-personal-library">7. The personal library</a></li>
+<li><a href="#8-the-attention-market">8. The attention market</a></li>
+<li><a href="#9-creator-curator-and-community-rewards">9. Creator, curator, and community rewards</a></li>
+<li><a href="#10-social-graph-and-discovery">10. Social graph and discovery</a></li>
+<li><a href="#11-solana-protocol">11. Solana protocol</a></li>
+<li><a href="#12-lifecycle">12. Lifecycle</a></li>
+<li><a href="#13-threat-model">13. Threat model</a></li>
+<li><a href="#14-prior-art-and-differentiation">14. Prior art and differentiation</a></li>
+<li><a href="#15-what-exists-today">15. What exists today</a></li>
+<li><a href="#16-staged-implementation">16. Staged implementation</a></li>
+<li><a href="#17-evaluation">17. Evaluation</a></li>
+<li><a href="#18-regulatory-and-communications-posture">18. Regulatory and communications posture</a></li>
+<li><a href="#19-open-questions">19. Open questions</a></li>
+<li><a href="#20-conclusion">20. Conclusion</a></li>
+<li><a href="#appendix-a-manifest-requirements">Appendix A — Manifest requirements</a></li>
+<li><a href="#appendix-b-economic-invariants">Appendix B — Economic invariants</a></li>
+<li><a href="#appendix-c-relationship-matrix">Appendix C — Relationship matrix</a></li>
+<li><a href="#appendix-d-glossary">Appendix D — Glossary</a></li>
+<li><a href="#publication-information">Publication information</a></li></ol></nav>
+<h1 id="1-the-idea-in-two-minutes">1. The idea in two minutes<a class="anchor" href="#1-the-idea-in-two-minutes" aria-label="Link to this section">#</a></h1>
+<p>Imagine an independent filmmaker releases a short documentary.</p>
+<p>The filmmaker publishes one immutable manifest containing the film's IPFS content identifier, files, edition, rights statement, and signature. A Solana registry anchors that release and creates its MediaToken.</p>
+<p>A viewer discovers the film and can do two independent things:</p>
+<ul>
+<li><strong>keep the work:</strong> download the exact verified bytes into a personal library, play it offline, and make it available to peers while online;</li>
+<li><strong>back the attention:</strong> acquire the film's MediaToken because they believe the work deserves a larger audience.</li>
+</ul>
+<p>The viewer recommends it, adds it to a collection, discusses it, or introduces it to a community. More people watch it. Some keep local copies. Some acquire the token. New demand moves the token's curve.</p>
+<p>The filmmaker earns explicit fees from market activity. People who recognized the work before wider attention arrived may be able to sell their position higher on the curve. A community treasury can support criticism, translations, events, moderation, and other active work around the release.</p>
+<p><img src="../figures/concept-loop.svg" alt="The MediaToken attention loop" /></p>
+<p><em>Figure 1 — One work becomes an open cultural and economic object shared by its creator and audience.</em></p>
+<p>This changes three familiar relationships:</p>
+<ul>
+<li>A <strong>like</strong> becomes an optional position with economic consequence.</li>
+<li>A <strong>stream</strong> becomes a work the audience can actually keep.</li>
+<li>An <strong>audience</strong> becomes a community and distribution network rather than a platform metric.</li>
+</ul>
+<p>The shortest version is:</p>
+<blockquote>
+<p>MediaToken lets creators and audiences jointly own the economic layer around a work's attention.</p>
+</blockquote>
+<h2 id="1-1-storage-follows-affection">1.1 Storage follows affection<a class="anchor" href="#1-1-storage-follows-affection" aria-label="Link to this section">#</a></h2>
+<p>People already build libraries of music, books, games, films, photographs, and research. Storage is inexpensive enough for a personal library to contain far more than a person can actively consume at once. The missing ingredient is a simple experience that treats local possession as normal rather than forcing every interaction through a remote platform.</p>
+<p>When many people care about a release, many may keep it. IPFS makes their identical, content-addressed copies mutually useful. When interest fades, people may remove the work. Availability therefore rises and falls with affection, collection, and cultural use.</p>
+<p>That is not a permanence guarantee. It is a different organizing principle:</p>
+<blockquote>
+<p>People keep the bits they care about; networks serve the bits people keep.</p>
+</blockquote>
+<h2 id="1-2-attention-not-access-control">1.2 Attention, not access control<a class="anchor" href="#1-2-attention-not-access-control" aria-label="Link to this section">#</a></h2>
+<p>The content can remain public. A person may keep or share a release without owning its token. A person may hold the token without keeping the media.</p>
+<p>The token is not a paywall. It is a way to make conviction, support, and demand portable across applications.</p>
+<h1 id="2-why-this-should-exist">2. Why this should exist<a class="anchor" href="#2-why-this-should-exist" aria-label="Link to this section">#</a></h1>
+<h2 id="2-1-platforms-own-the-economic-relationship">2.1 Platforms own the economic relationship<a class="anchor" href="#2-1-platforms-own-the-economic-relationship" aria-label="Link to this section">#</a></h2>
+<p>In the dominant media model:</p>
+<ol>
+<li>a creator uploads work to a platform;</li>
+<li>the platform hosts and ranks it;</li>
+<li>audiences create views, follows, recommendations, comments, and behavioral data;</li>
+<li>advertisers, subscribers, or investors fund the platform; and</li>
+<li>the platform decides what fraction reaches the creator.</li>
+</ol>
+<p>The creator rents access to the audience. The audience rents access to the work. The platform owns the graph connecting them.</p>
+<p>MediaToken asks whether the work itself can become the durable center of that relationship.</p>
+<h2 id="2-2-audiences-do-real-cultural-work">2.2 Audiences do real cultural work<a class="anchor" href="#2-2-audiences-do-real-cultural-work" aria-label="Link to this section">#</a></h2>
+<p>Discovery is productive. So are explanation, criticism, playlist-making, collection-building, translation, event organization, fandom, and bringing an obscure work into the right community.</p>
+<p>This labor is difficult to score objectively, but its aggregate effect is obvious: works become culturally important because people carry them to one another.</p>
+<p>Platforms convert that activity into retention and advertising inventory. MediaToken instead gives a participant the option to take a position before doing the work of curation. If broader attention follows, the position can become more valuable.</p>
+<p>No central reviewer must decide that a recommendation was good. The later audience supplies the verdict through demand.</p>
+<h2 id="2-3-creators-deserve-continuing-participation">2.3 Creators deserve continuing participation<a class="anchor" href="#2-3-creators-deserve-continuing-participation" aria-label="Link to this section">#</a></h2>
+<p>A creator should not have to choose between a one-time sale and an opaque platform royalty. A release-specific market can send an explicit creator fee whenever attention enters or leaves the market.</p>
+<p>This does not require the creator to surrender copyright or promise token holders a share of every future business. The token economy and the creator's broader commercial life can remain distinct.</p>
+<h2 id="2-4-people-should-possess-culture-directly">2.4 People should possess culture directly<a class="anchor" href="#2-4-people-should-possess-culture-directly" aria-label="Link to this section">#</a></h2>
+<p>A platform account is not a library. Access can disappear when a subscription lapses, a license changes, an application closes, or a catalog is reorganized.</p>
+<p>A local MediaToken library stores the canonical bytes and manifest on the user's own device. The work can be played offline and exported. Its CID lets another implementation verify that it has the same release.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<p>This is ownership in the practical sense of direct, non-exclusive possession—not ownership of copyright.</p>
+<h1 id="3-what-ownership-means">3. What “ownership” means<a class="anchor" href="#3-what-ownership-means" aria-label="Link to this section">#</a></h1>
+<p>MediaToken deliberately places two different forms of ownership side by side.</p>
+<h2 id="3-1-own-the-token">3.1 Own the token<a class="anchor" href="#3-1-own-the-token" aria-label="Link to this section">#</a></h2>
+<p>The holder owns a transferable fungible token linked to one release. That token is a position in the market for committed attention around the release.</p>
+<p>Acquiring it can mean:</p>
+<ul>
+<li>“I believe this deserves a larger audience.”</li>
+<li>“I want to be publicly associated with this work.”</li>
+<li>“I want exposure to future demand.”</li>
+<li>“I want to participate in this community.”</li>
+<li>“I want to support this creator.”</li>
+</ul>
+<p>The market cannot know which motivation dominates.</p>
+<h2 id="3-2-own-a-copy">3.2 Own a copy<a class="anchor" href="#3-2-own-a-copy" aria-label="Link to this section">#</a></h2>
+<p>The collector controls a local copy:</p>
+<ul>
+<li>exact media bytes live on storage they control;</li>
+<li>integrity is verifiable;</li>
+<li>playback does not require the originating platform;</li>
+<li>the release can be exported;</li>
+<li>retention can continue offline; and</li>
+<li>deletion is the collector's choice.</li>
+</ul>
+<p>Other people can possess the same bytes. Copy ownership is therefore non-exclusive.</p>
+<h2 id="3-3-ownable-attention">3.3 Ownable attention<a class="anchor" href="#3-3-ownable-attention" aria-label="Link to this section">#</a></h2>
+<p>No one owns human attention itself. The provocative shorthand “ownable attention” refers to a narrower mechanism:</p>
+<blockquote>
+<p>A person can own a transferable token whose supply and curve price respond to committed demand for a specific cultural object.</p>
+</blockquote>
+<p>The token turns early belief from an ephemeral platform interaction into a position that stays with the participant.</p>
+<p>It does not guarantee that later people will care.</p>
+<h2 id="3-4-four-valid-states">3.4 Four valid states<a class="anchor" href="#3-4-four-valid-states" aria-label="Link to this section">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>MediaToken</th>
+<th>Local copy</th>
+<th>Relationship</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Held</td>
+<td>Kept</td>
+<td>The person holds the position and the artifact</td>
+</tr>
+<tr>
+<td>Held</td>
+<td>Not kept</td>
+<td>Market or social participation without local retention</td>
+</tr>
+<tr>
+<td>Not held</td>
+<td>Kept</td>
+<td>Direct possession without financial participation</td>
+</tr>
+<tr>
+<td>Not held</td>
+<td>Not kept</td>
+<td>No current relationship</td>
+</tr>
+</tbody>
+</table>
+<p>The protocol never uses one state as proof of another.</p>
+<h2 id="3-5-what-is-not-owned">3.5 What is not owned<a class="anchor" href="#3-5-what-is-not-owned" aria-label="Link to this section">#</a></h2>
+<p>By default, neither a token nor a local copy grants:</p>
+<ul>
+<li>copyright;</li>
+<li>commercial exploitation rights;</li>
+<li>exclusivity;</li>
+<li>control over the creator;</li>
+<li>creator or protocol revenue;</li>
+<li>passive yield;</li>
+<li>a right to another person's attention;</li>
+<li>guaranteed access, price, liquidity, or persistence.</li>
+</ul>
+<p>U.S. law expressly distinguishes copyright ownership from ownership of an object embodying a work, and copyright transfers generally require a signed writing.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup> Other jurisdictions require their own analysis.</p>
+<h1 id="4-design-principles-and-non-goals">4. Design principles and non-goals<a class="anchor" href="#4-design-principles-and-non-goals" aria-label="Link to this section">#</a></h1>
+<h2 id="4-1-principles">4.1 Principles<a class="anchor" href="#4-1-principles" aria-label="Link to this section">#</a></h2>
+<p><strong>Creators and audiences are on the same side.</strong> Both benefit when worthwhile attention grows around a release.</p>
+<p><strong>A library, not a feed.</strong> The primary media experience is a user-controlled collection, not an infinite rented stream.</p>
+<p><strong>Likes become positions.</strong> Financial participation is optional, but it can make conviction durable and portable.</p>
+<p><strong>Infrastructure disappears.</strong> Users choose “Keep in my library,” not “register a storage commitment.”</p>
+<p><strong>Distribution is voluntary.</strong> People share because they care about the work, not because the protocol pays them to impersonate storage providers.</p>
+<p><strong>Immutable releases, explicit editions.</strong> A token always points to an immutable manifest; it never silently changes the media it represents.</p>
+<p><strong>The market measures commitment, not truth.</strong> Price and supply are inputs to discovery, never universal rankings.</p>
+<p><strong>Open edges, small core.</strong> Libraries, players, indexers, communities, and recommendation systems are replaceable.</p>
+<p><strong>Leaving is legitimate.</strong> A person can remove the bytes, sell the token, do both, or do neither.</p>
+<h2 id="4-2-non-goals">4.2 Non-goals<a class="anchor" href="#4-2-non-goals" aria-label="Link to this section">#</a></h2>
+<p>The baseline does not attempt to:</p>
+<ul>
+<li>pay people for pinning, bandwidth, downloads, views, likes, or comments;</li>
+<li>prove that a holder retains content;</li>
+<li>guarantee permanent storage;</li>
+<li>make public IPFS content private;</li>
+<li>transfer copyright by default;</li>
+<li>make price synonymous with artistic quality;</li>
+<li>define one global discovery algorithm;</li>
+<li>create a global protocol token;</li>
+<li>distribute creator revenue passively to every holder;</li>
+<li>prevent all copying or erase all copies; or</li>
+<li>launch a real-value market before security, economic, rights, and legal review.</li>
+</ul>
+<h1 id="5-system-architecture">5. System architecture<a class="anchor" href="#5-system-architecture" aria-label="Link to this section">#</a></h1>
+<p>MediaToken has five layers. Each can evolve without turning one kind of evidence into another.</p>
+<p><img src="../figures/architecture.svg" alt="The MediaToken architecture" /></p>
+<p><em>Figure 2 — The release is the common object; identity, market, library, and community remain separable.</em></p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Job</th>
+<th>Source of truth</th>
+<th>Does not prove</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content</td>
+<td>Identify the exact released work</td>
+<td>IPFS CIDs and canonical manifest</td>
+<td>Availability, authorship, legality</td>
+</tr>
+<tr>
+<td>Identity</td>
+<td>Anchor creator, mint, parameters, and lineage</td>
+<td>Solana release registry</td>
+<td>Copyright ownership or local possession</td>
+</tr>
+<tr>
+<td>Attention market</td>
+<td>Mint, redeem, account reserves, and route fees</td>
+<td>Solana market program</td>
+<td>Quality, truth, or future demand</td>
+</tr>
+<tr>
+<td>Library</td>
+<td>Keep, play, export, remove, and share media</td>
+<td>User-controlled local store</td>
+<td>Token ownership or promised uptime</td>
+</tr>
+<tr>
+<td>Social</td>
+<td>Discover, curate, collect, discuss, and coordinate</td>
+<td>Replaceable indexers and signed app records</td>
+<td>Canonical state without verification</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-1-actors">5.1 Actors<a class="anchor" href="#5-1-actors" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Creator:</strong> signs and activates a release; receives disclosed creator fees.</li>
+<li><strong>Holder:</strong> owns some quantity of the release's MediaToken.</li>
+<li><strong>Collector:</strong> keeps the media in a local library.</li>
+<li><strong>Curator:</strong> finds, contextualizes, recommends, or organizes releases.</li>
+<li><strong>Community contributor:</strong> performs active work around a release.</li>
+<li><strong>Indexer/client:</strong> turns canonical events and manifests into useful discovery and social experiences.</li>
+<li><strong>Protocol governance:</strong> controls bounded upgrades during early deployment.</li>
+</ul>
+<p>One person can occupy several roles, but the protocol does not assume that they do.</p>
+<h1 id="6-the-immutable-release">6. The immutable release<a class="anchor" href="#6-the-immutable-release" aria-label="Link to this section">#</a></h1>
+<h2 id="6-1-canonical-manifest">6.1 Canonical manifest<a class="anchor" href="#6-1-canonical-manifest" aria-label="Link to this section">#</a></h2>
+<p>An illustrative release manifest is:</p>
+<pre><code class="language-json">{
+  &quot;schema&quot;: &quot;mediatoken.release.v1&quot;,
+  &quot;title&quot;: &quot;Example release&quot;,
+  &quot;creator_wallet&quot;: &quot;&lt;solana-public-key&gt;&quot;,
+  &quot;published_at&quot;: &quot;2026-07-15T00:00:00Z&quot;,
+  &quot;root_cid&quot;: &quot;bafy...&quot;,
+  &quot;files&quot;: [
+    {
+      &quot;path&quot;: &quot;main.mp4&quot;,
+      &quot;cid&quot;: &quot;bafy...&quot;,
+      &quot;mime&quot;: &quot;video/mp4&quot;,
+      &quot;bytes&quot;: 12345678,
+      &quot;sha256&quot;: &quot;...&quot;
+    }
+  ],
+  &quot;preview_cid&quot;: &quot;bafy...&quot;,
+  &quot;rights&quot;: {
+    &quot;rights_uri&quot;: &quot;ipfs://bafy...&quot;,
+    &quot;token_grants&quot;: &quot;attention-position-only&quot;
+  },
+  &quot;lineage&quot;: {
+    &quot;supersedes&quot;: null,
+    &quot;series&quot;: null
+  },
+  &quot;import_profile&quot;: &quot;mediatoken-ipfs-v1&quot;,
+  &quot;signature&quot;: &quot;...&quot;
+}
+</code></pre>
+<p>The creator signs the canonical manifest digest. A Solana Program Derived Address anchors that digest, release parameters, mint, creator, and successor relationship.<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></p>
+<p>A wallet signature proves control of a key, not legal identity or authorship. Clients can layer verified creator identities on top.</p>
+<h2 id="6-2-deterministic-content-identity">6.2 Deterministic content identity<a class="anchor" href="#6-2-deterministic-content-identity" aria-label="Link to this section">#</a></h2>
+<p>A CID is not merely a file checksum. Codec, chunking, DAG layout, hash, CID version, and raw-leaf choices can change it even when logical file bytes match.<sup class="footnote-ref"><a href="#fn1" id="fnref1:1">[1:1]</a></sup></p>
+<p>The <code>mediatoken-ipfs-v1</code> import profile fixes:</p>
+<ul>
+<li>CID version and codec;</li>
+<li>hash algorithm;</li>
+<li>chunking algorithm and size;</li>
+<li>DAG layout and raw-leaf policy;</li>
+<li>path normalization; and</li>
+<li>canonical JSON encoding.</li>
+</ul>
+<p>The manifest also records byte length and SHA-256 for conventional verification and migration.</p>
+<h2 id="6-3-edition-integrity">6.3 Edition integrity<a class="anchor" href="#6-3-edition-integrity" aria-label="Link to this section">#</a></h2>
+<p>After activation:</p>
+<ul>
+<li>the manifest pointer is immutable;</li>
+<li>the mint has no freeze authority;</li>
+<li>metadata update authority is cleared;</li>
+<li><code>PermissionedBurn</code> authority is fixed to the market PDA; and</li>
+<li>market parameters are fixed for that release.</li>
+</ul>
+<p>The market PDA remains the only mint authority and the required co-signer for a burn; the holder or delegate must also authorize a burn from the token account.</p>
+<p>A correction, translation, remaster, or new edition creates a new release linked through <code>supersedes</code>. The old token still identifies the old work.</p>
+<h2 id="6-4-token-2022-profile">6.4 Token-2022 profile<a class="anchor" href="#6-4-token-2022-profile" aria-label="Link to this section">#</a></h2>
+<p>Token-2022 supplies the fungible mint and metadata interface.<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup> The baseline uses:</p>
+<ul>
+<li>on-mint TokenMetadata;</li>
+<li>URI <code>ipfs://&lt;manifest-CID&gt;</code>;</li>
+<li>fixed decimals;</li>
+<li>market-program mint authority;</li>
+<li><code>PermissionedBurnConfig</code> with the market PDA as required burn co-signer;</li>
+<li>no freeze authority after activation;</li>
+<li>no metadata update authority after activation; and</li>
+<li>no transfer-fee or transfer-hook extension in version 1.</li>
+</ul>
+<p>The permissioned-burn extension rejects ordinary burns while configured and requires both the configured authority and token-account owner or delegate to sign.<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup> Its authority must stay fixed: clearing it re-enables ordinary burns.</p>
+<p>Extensions must generally be selected before initialization, and combinations require compatibility testing.<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup> One mint per release also creates wallet, associated-account, rent, indexing, and spam overhead that the pilot must measure.</p>
+<h1 id="7-the-personal-library">7. The personal library<a class="anchor" href="#7-the-personal-library" aria-label="Link to this section">#</a></h1>
+<p>The library is where the protocol becomes tangible.</p>
+<h2 id="7-1-product-actions">7.1 Product actions<a class="anchor" href="#7-1-product-actions" aria-label="Link to this section">#</a></h2>
+<p>A compatible client should expose:</p>
+<ul>
+<li><strong>Keep in my library</strong></li>
+<li><strong>Remove local copy</strong></li>
+<li><strong>Play or read offline</strong></li>
+<li><strong>Verify release</strong></li>
+<li><strong>Export release</strong></li>
+<li><strong>Share with peers</strong></li>
+<li><strong>Acquire or sell MediaToken</strong></li>
+<li><strong>Add to collection</strong></li>
+<li><strong>Recommend</strong></li>
+</ul>
+<p>These are ordinary cultural actions. The user should not need to understand DHTs, blocks, provider records, or garbage collection.</p>
+<h2 id="7-2-what-keep-does">7.2 What “keep” does<a class="anchor" href="#7-2-what-keep-does" aria-label="Link to this section">#</a></h2>
+<p>Internally, the client retrieves the canonical DAG and protects it from local garbage collection. Kubo may implement that through a pin or MFS reference; another client may use an embedded IPFS node or compatible content-addressed store.<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup></p>
+<p>No protocol transaction occurs. The choice remains local and can remain private.</p>
+<p>When online and configured to participate, the node can serve retained blocks to peers. IPFS Bitswap exchanges wanted blocks between peers, while provider routing helps find candidate sources.<sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup></p>
+<h2 id="7-3-the-audience-becomes-the-network">7.3 The audience becomes the network<a class="anchor" href="#7-3-the-audience-becomes-the-network" aria-label="Link to this section">#</a></h2>
+<p><img src="../figures/library-network.svg" alt="Personal libraries form the distribution network" /></p>
+<p><em>Figure 3 — Overlapping personal libraries distribute exact works without a hosting market.</em></p>
+<p>The system does not recruit a separate class of professional hosts. Fans, collectors, creators, archivists, and institutions keep the works they choose.</p>
+<p>There is:</p>
+<ul>
+<li>no host registration;</li>
+<li>no proof of pinning;</li>
+<li>no disk or bandwidth meter;</li>
+<li>no storage bond;</li>
+<li>no retrieval verifier;</li>
+<li>no availability reward; and</li>
+<li>no requirement to hold a token.</li>
+</ul>
+<p>This removes an entire oracle and Sybil problem. It also removes any service guarantee.</p>
+<h2 id="7-4-availability-is-emergent">7.4 Availability is emergent<a class="anchor" href="#7-4-availability-is-emergent" aria-label="Link to this section">#</a></h2>
+<p>A creator supplies the first copy. Each additional library may add another source. A popular work will often have more copies than an ignored one. A small but devoted community may keep an obscure work available for years.</p>
+<p>But if every participant removes a release, the CID cannot reconstruct missing bytes and the work becomes unavailable for new retrieval. “Immutable” describes release identity, not guaranteed availability. IPFS provides addressing and verified retrieval, not permanence.<sup class="footnote-ref"><a href="#fn8" id="fnref8:1">[8:1]</a></sup></p>
+<p>Creators or collectors may separately use paid pinning, Filecoin, institutional archives, or backups. Those are optional insurance, not MediaToken's economic center.</p>
+<h2 id="7-5-leaving">7.5 Leaving<a class="anchor" href="#7-5-leaving" aria-label="Link to this section">#</a></h2>
+<p>A user who loses interest can:</p>
+<ul>
+<li>remove the local work but keep the token;</li>
+<li>sell the token but keep the work;</li>
+<li>remove and sell both; or</li>
+<li>keep both without remaining socially active.</li>
+</ul>
+<p>The system treats changing taste as normal, not as breach of a storage contract.</p>
+<h2 id="7-6-privacy-and-safety">7.6 Privacy and safety<a class="anchor" href="#7-6-privacy-and-safety" aria-label="Link to this section">#</a></h2>
+<p>Public IPFS is public. Requests, provider advertisements, wallet holdings, and client telemetry can reveal cultural interests.<sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup></p>
+<p>Clients should support:</p>
+<ul>
+<li>local-only or non-providing mode;</li>
+<li>privacy-conscious gateways or transports;</li>
+<li>separate wallet and peer identities;</li>
+<li>sandboxed media rendering;</li>
+<li>MIME and size validation;</li>
+<li>malware scanning where appropriate; and</li>
+<li>clear indication of what is public.</li>
+</ul>
+<h1 id="8-the-attention-market">8. The attention market<a class="anchor" href="#8-the-attention-market" aria-label="Link to this section">#</a></h1>
+<p>The market converts costly commitment into a public signal and economic position. It does not count eyeballs.</p>
+<h2 id="8-1-what-the-market-observes">8.1 What the market observes<a class="anchor" href="#8-1-what-the-market-observes" aria-label="Link to this section">#</a></h2>
+<p>The protocol can observe:</p>
+<ul>
+<li>circulating token supply;</li>
+<li>curve quote;</li>
+<li>reserve balance;</li>
+<li>unique wallets;</li>
+<li>holder concentration;</li>
+<li>creator holdings;</li>
+<li>holding duration;</li>
+<li>buy and sell activity; and</li>
+<li>creator, community, and protocol fee flows.</li>
+</ul>
+<p>It cannot observe why someone bought, whether they watched the work, whether a recommendation was sincere, or whether the work is good.</p>
+<h2 id="8-2-fully-reserved-linear-curve">8.2 Fully reserved linear curve<a class="anchor" href="#8-2-fully-reserved-linear-curve" aria-label="Link to this section">#</a></h2>
+<p>Let:</p>
+<ul>
+<li><em>S</em> be circulating supply;</li>
+<li><em>p₀</em> be starting marginal quote;</li>
+<li><em>k</em> be positive slope;</li>
+<li><em>P(S)</em> be marginal quote; and</li>
+<li><em>B(S)</em> be required reserve.</li>
+</ul>
+<div class="equation">
+P(S) = p₀ + kS
+</div>
+<div class="equation">
+B(S) = ∫₀ˢ P(x)dx = p₀S + ½kS²
+</div>
+<p>Buying ΔS requires curve principal:</p>
+<div class="equation">
+C = B(S + ΔS) − B(S)
+</div>
+<p>Selling ΔS releases:</p>
+<div class="equation">
+R = B(S) − B(S − ΔS)
+</div>
+<p>“Fully reserved” means the reserve vault equals <em>B(current supply)</em>. It does not mean every holder can redeem at the current marginal quote. Redemptions move down the curve.</p>
+<h2 id="8-3-fees-and-value-flow">8.3 Fees and value flow<a class="anchor" href="#8-3-fees-and-value-flow" aria-label="Link to this section">#</a></h2>
+<p>Let <em>fᶜ</em>, <em>fᵐ</em>, and <em>fᵖ</em> be creator, community, and protocol fee rates.</p>
+<p>On buy:</p>
+<div class="equation">
+buyer pays = C × (1 + fᶜ + fᵐ + fᵖ)
+</div>
+<p>On sell:</p>
+<div class="equation">
+seller receives = R × (1 − fᶜ − fᵐ − fᵖ)
+</div>
+<p>The reserve receives exactly <em>C</em> on mint and releases exactly <em>R</em> on burn. Creator or community funds cannot be skimmed from reserve principal.</p>
+<p><img src="../figures/market-flow.svg" alt="Attention market and fee flow" /></p>
+<p><em>Figure 4 — The reserve backs redemption; explicit fees reward the creator and fund community activity.</em></p>
+<p>Token-2022 transfer fees are not used for this baseline. They collect the transferred token itself rather than implementing stable-asset curve settlement and fee routing.<sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup></p>
+<h2 id="8-4-creator-reward-stream">8.4 Creator reward stream<a class="anchor" href="#8-4-creator-reward-stream" aria-label="Link to this section">#</a></h2>
+<p>The creator receives a disclosed share of market fees whenever attention enters or leaves the release market.</p>
+<p>The creator may also hold a launch position. Every redeemable creator token must have corresponding reserve principal, and the source of that backing must be visible. There is no hidden redeemable premine.</p>
+<p>The creator can separately earn from performances, access, memberships, commissions, merchandise, licensing, sponsorship, or other commerce. MediaToken holders have no default claim on that income.</p>
+<h2 id="8-5-early-curation-upside">8.5 Early-curation upside<a class="anchor" href="#8-5-early-curation-upside" aria-label="Link to this section">#</a></h2>
+<p>The curve intentionally makes early conviction economically consequential.</p>
+<p>For a linear curve, a participant who buys <em>q</em> tokens at any starting supply and later sells that whole position after other net demand adds <em>v</em> tokens has gross gain before fees:</p>
+<div class="equation">
+Π = kqv
+</div>
+<p>Here <em>v</em> is the net supply added after the purchase, excluding the participant’s <em>q</em>. Substituting the integral buy cost and later redemption into <em>B(S)</em> cancels the starting supply, <em>p₀</em>, and the <em>q²</em> terms.</p>
+<p>That is the primary reward for identifying and supporting attention early.</p>
+<p>It is also the primary speculative risk. The gain comes from later net inflows, not from the content producing cash. If demand leaves before the participant exits, the same curve moves downward.</p>
+<p>The paper should not apologize this mechanism away; it is part of the thesis. It should also never hide who funds it.</p>
+<h2 id="8-6-numerical-example">8.6 Numerical example<a class="anchor" href="#8-6-numerical-example" aria-label="Link to this section">#</a></h2>
+<p>Suppose:</p>
+<ul>
+<li>starting quote <em>p₀</em> = $0.10;</li>
+<li>quote at 10,000 tokens = $1.00;</li>
+<li>therefore <em>k</em> = 0.00009.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Supply</th>
+<th style="text-align:right">Marginal curve quote</th>
+<th style="text-align:right">Locked reserve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1,000</td>
+<td style="text-align:right">$0.19</td>
+<td style="text-align:right">$145</td>
+</tr>
+<tr>
+<td style="text-align:right">5,000</td>
+<td style="text-align:right">$0.55</td>
+<td style="text-align:right">$1,625</td>
+</tr>
+<tr>
+<td style="text-align:right">10,000</td>
+<td style="text-align:right">$1.00</td>
+<td style="text-align:right">$5,500</td>
+</tr>
+</tbody>
+</table>
+<p>A participant buying the first 1,000 tokens contributes $145 of principal before fees. If later net demand raises supply to 5,000, redeeming those tokens returns $505 before fees: a $360 gross gain.</p>
+<p>That example is not a forecast. It reveals the mechanism.</p>
+<h2 id="8-7-batch-launch">8.7 Batch launch<a class="anchor" href="#8-7-batch-launch" aria-label="Link to this section">#</a></h2>
+<p>A 24–72 hour initial batch reduces the advantage of being the first ordered transaction.</p>
+<p>If supporters contribute total curve principal <em>Q</em>:</p>
+<div class="equation">
+S₁ = (−p₀ + √(p₀² + 2kQ)) / k
+</div>
+<p>Participants receive <em>S₁</em> pro rata at one average price. The batch discloses cap, minimum settlement, creator holdings, fees, and refund behavior.</p>
+<h2 id="8-8-automatic-quote-is-not-fair-value">8.8 Automatic quote is not fair value<a class="anchor" href="#8-8-automatic-quote-is-not-fair-value" aria-label="Link to this section">#</a></h2>
+<p>The curve supplies a deterministic quote without a matching order at that instant. It does not guarantee:</p>
+<ul>
+<li>organic demand;</li>
+<li>fair value;</li>
+<li>exit at the last marginal quote for every holder;</li>
+<li>protection from runs or depegs;</li>
+<li>resistance to transaction ordering;</li>
+<li>suitable collateral pricing; or</li>
+<li>profit.</li>
+</ul>
+<p>Every trade includes maximum cost or minimum return and a deadline.</p>
+<h1 id="9-creator-curator-and-community-rewards">9. Creator, curator, and community rewards<a class="anchor" href="#9-creator-curator-and-community-rewards" aria-label="Link to this section">#</a></h1>
+<p>The system has three distinct reward channels.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Baseline reward</th>
+<th>What creates it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creator</td>
+<td>Quote-asset creator fees</td>
+<td>Market activity around the release</td>
+</tr>
+<tr>
+<td>Early holder/curator</td>
+<td>Change in redeemable curve position</td>
+<td>Later net demand after early conviction</td>
+</tr>
+<tr>
+<td>Active contributor</td>
+<td>Transparent grants, bounties, or optional attribution fees</td>
+<td>Deliberate community funding</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-1-curation-as-judgment">9.1 Curation as judgment<a class="anchor" href="#9-1-curation-as-judgment" aria-label="Link to this section">#</a></h2>
+<p>A curator creates value by:</p>
+<ul>
+<li>finding work early;</li>
+<li>explaining why it matters;</li>
+<li>placing it in a meaningful collection;</li>
+<li>connecting it to the right audience;</li>
+<li>preserving context;</li>
+<li>organizing conversation; and</li>
+<li>making the community legible to newcomers.</li>
+</ul>
+<p>The base protocol does not award points for these acts. The curator takes a position, performs the work, and lets later demand judge the result.</p>
+<h2 id="9-2-community-treasury">9.2 Community treasury<a class="anchor" href="#9-2-community-treasury" aria-label="Link to this section">#</a></h2>
+<p>A disclosed community fee can enter a release-specific treasury. It can support:</p>
+<ul>
+<li>criticism and commentary;</li>
+<li>translations and accessibility;</li>
+<li>playlists and collections;</li>
+<li>events;</li>
+<li>moderation;</li>
+<li>tools and integrations;</li>
+<li>licensed remixes;</li>
+<li>historical context; and</li>
+<li>onboarding.</li>
+</ul>
+<p>A treasury can pay stable-asset grants or buy fully backed MediaTokens from the curve for distribution. It cannot mint unbacked redeemable tokens.</p>
+<p>The first governance can be creator stewardship or a small release multisignature. Token-weighted voting is optional and should not decide copyright or safety disputes.</p>
+<h2 id="9-3-curator-attribution-experiment">9.3 Curator attribution experiment<a class="anchor" href="#9-3-curator-attribution-experiment" aria-label="Link to this section">#</a></h2>
+<p>A client may let a buyer voluntarily attribute discovery to a curator. A bounded community fee could reward demand that remains after a delay.</p>
+<p>This is not a baseline promise. Referrals are vulnerable to self-dealing, Sybil identities, and wash trading. Any experiment needs hard caps, delayed settlement, conflict disclosure, and comparison against a no-reward control.</p>
+<h2 id="9-4-the-positive-sum-question">9.4 The positive-sum question<a class="anchor" href="#9-4-the-positive-sum-question" aria-label="Link to this section">#</a></h2>
+<p>A reserve curve alone redistributes quote assets among participants and charges fees. After costs, it is negative-sum as a closed financial system.</p>
+<p>The broader creative economy can be positive-sum when attention causes external value:</p>
+<ul>
+<li>people pay creators for performances, access, products, commissions, or licenses;</li>
+<li>communities create useful criticism, translations, tools, and events;</li>
+<li>discovery saves people time and helps worthwhile work find an audience; and</li>
+<li>creators make more work because they receive sustainable income.</li>
+</ul>
+<p>The baseline does not automatically distribute that external income to holders. Whether any future token should carry revenue rights is a separate economic and legal decision.</p>
+<h1 id="10-social-graph-and-discovery">10. Social graph and discovery<a class="anchor" href="#10-social-graph-and-discovery" aria-label="Link to this section">#</a></h1>
+<p>A release is more than a mint. It is a social object with:</p>
+<ul>
+<li>creator;</li>
+<li>holders;</li>
+<li>collectors;</li>
+<li>curators;</li>
+<li>series and successor relationships;</li>
+<li>user-created collections;</li>
+<li>comments and annotations;</li>
+<li>community spaces;</li>
+<li>market history; and</li>
+<li>links to authorized derivatives.</li>
+</ul>
+<p>Replaceable indexers combine Solana events, signed app records, and IPFS manifests.</p>
+<h2 id="10-1-user-controlled-ranking">10.1 User-controlled ranking<a class="anchor" href="#10-1-user-controlled-ranking" aria-label="Link to this section">#</a></h2>
+<p>A person should be able to choose the weight of:</p>
+<ul>
+<li>people they follow;</li>
+<li>editorial collections;</li>
+<li>free social activity;</li>
+<li>early-holder history;</li>
+<li>unique holders and concentration;</li>
+<li>holding duration;</li>
+<li>current market commitment;</li>
+<li>provenance;</li>
+<li>recency; and</li>
+<li>local retrievability.</li>
+</ul>
+<p>Price alone is a bad feed. It rewards promotion, wealth, and speculation as readily as quality.</p>
+<h2 id="10-2-creator-release-and-collection-markets">10.2 Creator, release, and collection markets<a class="anchor" href="#10-2-creator-release-and-collection-markets" aria-label="Link to this section">#</a></h2>
+<p>The baseline token maps to one immutable release because that relationship is exact and testable.</p>
+<p>Later applications may compose:</p>
+<ul>
+<li>creator-level views aggregating releases;</li>
+<li>collection tokens;</li>
+<li>series or catalog indexes; and</li>
+<li>community-curated baskets.</li>
+</ul>
+<p>Those should be separate instruments rather than making one release token silently represent a changing catalog. The manifest’s <code>supersedes</code> and <code>series</code> links let clients build auditable catalog views without changing what an existing release token represents.</p>
+<h1 id="11-solana-protocol">11. Solana protocol<a class="anchor" href="#11-solana-protocol" aria-label="Link to this section">#</a></h1>
+<p>Solana supplies programmable state, deterministic program-owned accounts, atomic asset movement, and a widely supported token interface. Token-2022 does not supply the curve, reserve, creator fee, community treasury, or social graph; those require custom programs and clients.</p>
+<h2 id="11-1-core-accounts">11.1 Core accounts<a class="anchor" href="#11-1-core-accounts" aria-label="Link to this section">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Account</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProtocolConfig</code></td>
+<td>Program version, allowed reserve mints, hard fee bounds, governance</td>
+</tr>
+<tr>
+<td><code>Release</code></td>
+<td>Creator, manifest digest, mint, curve, fees, status, successor</td>
+</tr>
+<tr>
+<td><code>ReserveVault</code></td>
+<td>Quote-asset principal backing redemption</td>
+</tr>
+<tr>
+<td><code>CreatorVault</code></td>
+<td>Explicit creator fee stream</td>
+</tr>
+<tr>
+<td><code>CommunityVault</code></td>
+<td>Release-specific grants and active participation</td>
+</tr>
+<tr>
+<td><code>ProtocolVault</code></td>
+<td>Operations, audits, bug bounties, and development</td>
+</tr>
+<tr>
+<td><code>LaunchBatch</code></td>
+<td>Commitments, cap, settlement, allocation, and refunds</td>
+</tr>
+</tbody>
+</table>
+<p>There are no host, storage, verifier, or attestation accounts.</p>
+<h2 id="11-2-core-instructions">11.2 Core instructions<a class="anchor" href="#11-2-core-instructions" aria-label="Link to this section">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>activate_release</code></td>
+<td>Anchor manifest, create mint and vaults, lock parameters</td>
+</tr>
+<tr>
+<td><code>commit_launch</code></td>
+<td>Escrow initial principal under cap and refund rules</td>
+</tr>
+<tr>
+<td><code>settle_launch</code></td>
+<td>Compute supply and distribute pro rata</td>
+</tr>
+<tr>
+<td><code>buy</code></td>
+<td>Transfer principal and fees, then mint atomically</td>
+</tr>
+<tr>
+<td><code>sell</code></td>
+<td>Co-sign the holder-authorized burn, release liability, route fees, and pay atomically</td>
+</tr>
+<tr>
+<td><code>fund_community</code></td>
+<td>Add quote assets without altering reserve or supply</td>
+</tr>
+<tr>
+<td><code>grant_participation_reward</code></td>
+<td>Spend bounded community funds under visible authority</td>
+</tr>
+<tr>
+<td><code>link_successor</code></td>
+<td>Link a separately activated edition</td>
+</tr>
+<tr>
+<td><code>pause_buys</code></td>
+<td>Stop new exposure during a serious incident while preserving redemption where safe</td>
+</tr>
+</tbody>
+</table>
+<p>Every trade includes expected supply, slippage, deadline, and exact reserve mint.</p>
+<h2 id="11-3-invariants">11.3 Invariants<a class="anchor" href="#11-3-invariants" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Reserve balance equals <em>B(circulating supply)</em>.</li>
+<li>Only the market PDA can mint and co-sign burns; every sell burn also requires holder or delegate authorization.</li>
+<li>Every redeemable token has corresponding principal.</li>
+<li>Fees never count toward reserve backing.</li>
+<li>Creator and community authority cannot sweep the reserve.</li>
+<li>Mint/burn, transfers, fees, and state update are atomic.</li>
+<li>Release metadata and parameters lock at activation.</li>
+<li>Integer rounding direction is specified and property-tested.</li>
+<li>Governance actions are bounded, visible, multisignature-controlled, and time-locked.</li>
+<li>Emergency controls cannot convert participant liabilities into operating funds.</li>
+</ol>
+<h1 id="12-lifecycle">12. Lifecycle<a class="anchor" href="#12-lifecycle" aria-label="Link to this section">#</a></h1>
+<h2 id="12-1-creator-publishes">12.1 Creator publishes<a class="anchor" href="#12-1-creator-publishes" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Build a draft in a mutable local workspace.</li>
+<li>Import files under the canonical profile.</li>
+<li>Review manifest, rights, and edition data.</li>
+<li>Sign the manifest.</li>
+<li>Seed the first retrievable copy.</li>
+<li>Activate the release and optional market.</li>
+<li>Lock metadata and launch parameters.</li>
+</ol>
+<h2 id="12-2-a-person-discovers">12.2 A person discovers<a class="anchor" href="#12-2-a-person-discovers" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Find the release through a friend, curator, collection, indexer, or direct link.</li>
+<li>Verify creator, manifest, rights, and market state.</li>
+<li>Stream or retrieve the content from any available IPFS route.</li>
+<li>Choose whether to keep the work.</li>
+<li>Choose independently whether to acquire the token.</li>
+</ol>
+<h2 id="12-3-a-curator-participates">12.3 A curator participates<a class="anchor" href="#12-3-a-curator-participates" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Take a position if desired.</li>
+<li>Add context, recommendation, collection placement, or community activity.</li>
+<li>Disclose holdings where influence matters.</li>
+<li>Benefit only if later demand values the judgment, or receive a separately visible grant.</li>
+</ol>
+<h2 id="12-4-interest-changes">12.4 Interest changes<a class="anchor" href="#12-4-interest-changes" aria-label="Link to this section">#</a></h2>
+<p>The person can unkeep the local work, sell the token, leave the community, or retain any part. No coordinator must approve the exit.</p>
+<h1 id="13-threat-model">13. Threat model<a class="anchor" href="#13-threat-model" aria-label="Link to this section">#</a></h1>
+<table>
+<thead>
+<tr>
+<th>Threat</th>
+<th>Severity</th>
+<th>Baseline response</th>
+<th>Residual truth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reserve bug or theft</td>
+<td>Critical</td>
+<td>Minimal program, invariants, audit, no admin sweep</td>
+<td>Smart-contract risk remains</td>
+</tr>
+<tr>
+<td>Creator pump and exit</td>
+<td>High</td>
+<td>Holdings disclosure, no hidden premine, concentration display</td>
+<td>Self-buying through other wallets remains</td>
+</tr>
+<tr>
+<td>Wash trading</td>
+<td>High</td>
+<td>Fees, unique/duration metrics, no price-only feed</td>
+<td>Pseudonymous demand is gameable</td>
+</tr>
+<tr>
+<td>Early-entry extraction</td>
+<td>High</td>
+<td>Batch launch, exact curve and impact disclosure</td>
+<td>Later inflows intentionally fund early upside</td>
+</tr>
+<tr>
+<td>Speculation overwhelms culture</td>
+<td>High</td>
+<td>Library/social utility, user-controlled discovery, small pilot</td>
+<td>Financial incentives change behavior</td>
+</tr>
+<tr>
+<td>Closed system is negative-sum</td>
+<td>High</td>
+<td>State this; test creator commerce and community value</td>
+<td>Curve gains alone come from other participants</td>
+</tr>
+<tr>
+<td>Price treated as quality</td>
+<td>High</td>
+<td>Separate editorial, social, and market signals</td>
+<td>Wealth and promotion still influence attention</td>
+</tr>
+<tr>
+<td>Counterfeit creator</td>
+<td>Critical</td>
+<td>Signature, clear unverified status, and identity credentials for verified creators</td>
+<td>A wallet or credential does not prove rights</td>
+</tr>
+<tr>
+<td>Metadata bait-and-switch</td>
+<td>High</td>
+<td>Locked pointer and successor releases</td>
+<td>Dishonest clients can misrepresent state</td>
+</tr>
+<tr>
+<td>All copies disappear</td>
+<td>High</td>
+<td>Creator seed, exportable libraries, optional archives</td>
+<td>CID cannot recover absent bytes</td>
+</tr>
+<tr>
+<td>Malicious media</td>
+<td>High</td>
+<td>Sandboxed players, validation, scanning</td>
+<td>Direct possession carries ordinary file risk</td>
+</tr>
+<tr>
+<td>Privacy leakage</td>
+<td>High</td>
+<td>Local-only mode, private routes, identity separation</td>
+<td>Public wallets and IPFS leak metadata</td>
+</tr>
+<tr>
+<td>Infringing or harmful work</td>
+<td>Critical</td>
+<td>Indexer/gateway policies, dispute records, user control</td>
+<td>Existing local copies cannot be globally erased; new retrieval depends on voluntary holders</td>
+</tr>
+<tr>
+<td>Community treasury capture</td>
+<td>Medium–High</td>
+<td>Visible flows, bounded authority, replaceable clients</td>
+<td>Governance remains social</td>
+</tr>
+<tr>
+<td>Referral farming</td>
+<td>High</td>
+<td>Defer; caps, delay, net-demand rules</td>
+<td>Open identity remains gameable</td>
+</tr>
+<tr>
+<td>Too many tiny markets</td>
+<td>High</td>
+<td>Release thresholds and aggregation experiments</td>
+<td>Per-work tokens may not fit the long tail</td>
+</tr>
+<tr>
+<td>Reserve asset failure</td>
+<td>High</td>
+<td>Exact mint disclosure, exposure pause, contingency plan</td>
+<td>Depeg and issuer controls remain</td>
+</tr>
+<tr>
+<td>Regulatory characterization</td>
+<td>Critical</td>
+<td>Candid upside description and specialist review</td>
+<td>The intended economics are material facts</td>
+</tr>
+</tbody>
+</table>
+<p>The paper should preserve both sides of the central tension:</p>
+<blockquote>
+<p>Early participants sharing in later attention is the intended reward—not an accidental edge case. It is also the mechanism most likely to attract speculation, abuse, and regulatory scrutiny.</p>
+</blockquote>
+<h1 id="14-prior-art-and-differentiation">14. Prior art and differentiation<a class="anchor" href="#14-prior-art-and-differentiation" aria-label="Link to this section">#</a></h1>
+<p>MediaToken composes existing ideas rather than claiming invention of its parts.</p>
+<h2 id="14-1-ipfs-and-bittorrent-like-distribution">14.1 IPFS and BitTorrent-like distribution<a class="anchor" href="#14-1-ipfs-and-bittorrent-like-distribution" aria-label="Link to this section">#</a></h2>
+<p>BitTorrent demonstrated that people possessing wanted files can collectively distribute them without a central media host.<sup class="footnote-ref"><a href="#fn13" id="fnref13">[13]</a></sup> IPFS adds content-addressed identity, verifiable blocks, and generalized routing.</p>
+<p>MediaToken's distribution model is similarly voluntary. Unlike proof-of-storage systems, it does not pay or police providers.</p>
+<h2 id="14-2-bancor">14.2 Bancor<a class="anchor" href="#14-2-bancor" aria-label="Link to this section">#</a></h2>
+<p>Bancor established a reserve-backed continuous-token model.<sup class="footnote-ref"><a href="#fn14" id="fnref14">[14]</a></sup> MediaToken applies a simple integral curve to one cultural object and routes explicit creator and community fees outside reserve principal.</p>
+<h2 id="14-3-zora-content-coins">14.3 Zora content coins<a class="anchor" href="#14-3-zora-content-coins" aria-label="Link to this section">#</a></h2>
+<p>Zora provides contemporary content-coin and creator-fee prior art.<sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup> MediaToken adds a canonical IPFS release manifest, direct local-library possession, a fully specified redemption reserve, and the explicit goal of rewarding early curation around an immutable work.</p>
+<h2 id="14-4-open-audio-protocol">14.4 Open Audio Protocol<a class="anchor" href="#14-4-open-audio-protocol" aria-label="Link to this section">#</a></h2>
+<p>Open Audio documents Solana artist coins, bonding-curve launches, trading fees, media storage validators, and moderation parties.<sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup><sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup></p>
+<p>MediaToken differs in unit and distribution model:</p>
+<ul>
+<li>release-level rather than artist-level baseline;</li>
+<li>user-owned general media libraries rather than staked, assigned storage providers;</li>
+<li>exact immutable edition identity; and</li>
+<li>a creator–early-curator attention loop across media types.</li>
+</ul>
+<h2 id="14-5-defensible-distinction">14.5 Defensible distinction<a class="anchor" href="#14-5-defensible-distinction" aria-label="Link to this section">#</a></h2>
+<blockquote>
+<p>One immutable work, one portable attention market, direct possession of the bits, creator cashflow, early-curator upside, and an open community graph.</p>
+</blockquote>
+<p>The value is the loop, not any single component.</p>
+<h1 id="15-what-exists-today">15. What exists today<a class="anchor" href="#15-what-exists-today" aria-label="Link to this section">#</a></h1>
+<p>The recovered BME project is a pre-alpha local prototype.</p>
+<h2 id="15-1-demonstrated-path">15.1 Demonstrated path<a class="anchor" href="#15-1-demonstrated-path" aria-label="Link to this section">#</a></h2>
+<div class="equation compact">
+content bytes → content CID → metadata document → metadata CID → Token-2022 mint URI
+</div>
+<p>Implemented components include:</p>
+<ul>
+<li>local Kubo/IPFS;</li>
+<li>local Solana validator;</li>
+<li>React/Vite media workspace;</li>
+<li>upload, move, rename, delete, and preview operations;</li>
+<li>CID and metadata generation;</li>
+<li>Token-2022 mint experiments;</li>
+<li>wallet integrations; and</li>
+<li>a local CID-to-mint registry.</li>
+</ul>
+<p>This is meaningful evidence for the release and library direction.</p>
+<h2 id="15-2-not-implemented">15.2 Not implemented<a class="anchor" href="#15-2-not-implemented" aria-label="Link to this section">#</a></h2>
+<p>The repository does not implement:</p>
+<ul>
+<li>a custom Solana market program;</li>
+<li>reserve vaults or curve trading;</li>
+<li>creator/community fee routing;</li>
+<li>batch launch;</li>
+<li>open discovery or social graph;</li>
+<li>community treasury;</li>
+<li>production rights or moderation workflows;</li>
+<li>automated tests or CI;</li>
+<li>security, economic, or legal audits.</li>
+</ul>
+<p>The market and community system in this paper remains proposed.</p>
+<h1 id="16-staged-implementation">16. Staged implementation<a class="anchor" href="#16-staged-implementation" aria-label="Link to this section">#</a></h1>
+<h2 id="phase-0-make-ownership-of-bits-delightful">Phase 0 — Make ownership of bits delightful<a class="anchor" href="#phase-0-make-ownership-of-bits-delightful" aria-label="Link to this section">#</a></h2>
+<p><strong>Build</strong></p>
+<ul>
+<li>deterministic manifest/import profile;</li>
+<li>retrieve and verify from multiple IPFS routes;</li>
+<li>keep, remove, play offline, and export;</li>
+<li>explicit disk-budget controls;</li>
+<li>local-only and peer-sharing modes;</li>
+<li>locked metadata and successor editions.</li>
+</ul>
+<p><strong>Question</strong></p>
+<p>Will people maintain local cultural libraries when the experience is easier than managing downloads manually?</p>
+<h2 id="phase-1-devnet-attention-market">Phase 1 — Devnet attention market<a class="anchor" href="#phase-1-devnet-attention-market" aria-label="Link to this section">#</a></h2>
+<p><strong>Build</strong></p>
+<ul>
+<li>release registry;</li>
+<li>fully reserved curve;</li>
+<li>batch launch;</li>
+<li>creator, community, and protocol fee vaults;</li>
+<li>exact reserve and holdings displays;</li>
+<li>property tests and economic simulation.</li>
+</ul>
+<p><strong>Question</strong></p>
+<p>Can people understand the position, fee flows, and declining redemption curve without investment euphemism?</p>
+<h2 id="phase-2-release-as-social-object">Phase 2 — Release as social object<a class="anchor" href="#phase-2-release-as-social-object" aria-label="Link to this section">#</a></h2>
+<p><strong>Build</strong></p>
+<ul>
+<li>portable collections and recommendations;</li>
+<li>creator and holder views;</li>
+<li>signed comments and annotations;</li>
+<li>user-controlled discovery;</li>
+<li>transparent community grants;</li>
+<li>holding and conflict disclosure for curators.</li>
+</ul>
+<p><strong>Question</strong></p>
+<p>Does the system reward useful discovery and community rather than only promotion?</p>
+<h2 id="phase-3-bounded-real-value-pilot">Phase 3 — Bounded real-value pilot<a class="anchor" href="#phase-3-bounded-real-value-pilot" aria-label="Link to this section">#</a></h2>
+<p><strong>Prerequisites</strong></p>
+<ul>
+<li>rights-cleared creators and releases;</li>
+<li>independently audited program;</li>
+<li>tested incident and redemption paths;</li>
+<li>specialist legal review of code, token, launch, UI, and communications;</li>
+<li>strict participant and value caps.</li>
+</ul>
+<p><strong>Question</strong></p>
+<p>Does creator income and participant behavior justify the risks of a financial market?</p>
+<h2 id="phase-4-open-ecosystem">Phase 4 — Open ecosystem<a class="anchor" href="#phase-4-open-ecosystem" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>open indexer schema;</li>
+<li>independent libraries and players;</li>
+<li>portable export format;</li>
+<li>creator/catalog aggregation experiments;</li>
+<li>optional bounded curator attribution;</li>
+<li>wallet and market interoperability.</li>
+</ul>
+<h1 id="17-evaluation">17. Evaluation<a class="anchor" href="#17-evaluation" aria-label="Link to this section">#</a></h1>
+<h2 id="17-1-comprehension">17.1 Comprehension<a class="anchor" href="#17-1-comprehension" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Can a friend explain “own the attention” without saying copyright?</li>
+<li>Can they explain “own the bits” without saying exclusivity?</li>
+<li>Can they identify who funds an early participant's curve gain?</li>
+<li>Can they explain that token and local copy are independent?</li>
+</ul>
+<h2 id="17-2-library-behavior">17.2 Library behavior<a class="anchor" href="#17-2-library-behavior" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>What fraction of viewed releases do users keep?</li>
+<li>How much disk do real libraries consume?</li>
+<li>Can a user export and restore a library in another client?</li>
+<li>How often can content be retrieved without the creator's node?</li>
+<li>How quickly does availability change as users remove works?</li>
+<li>Do mobile, NAT, and intermittent connectivity prevent meaningful peer exchange?</li>
+</ul>
+<h2 id="17-3-creator-economics">17.3 Creator economics<a class="anchor" href="#17-3-creator-economics" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>What creator income results from genuine, non-wash activity?</li>
+<li>Do fees encourage continued creation without making exits punitive?</li>
+<li>Does a creator position improve alignment or create pump incentives?</li>
+<li>Does outside commerce grow because the attention graph is portable?</li>
+</ul>
+<h2 id="17-4-curation-and-community">17.4 Curation and community<a class="anchor" href="#17-4-curation-and-community" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Do early holdings correlate with later editorial judgment?</li>
+<li>Do holdings make recommendations more informative or less trustworthy?</li>
+<li>Can conflict disclosure improve credibility?</li>
+<li>Do community grants fund useful work?</li>
+<li>Does a market crowd out people who want nonfinancial participation?</li>
+</ul>
+<h2 id="17-5-adversarial">17.5 Adversarial<a class="anchor" href="#17-5-adversarial" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>How cheaply can one actor manufacture attention?</li>
+<li>Can a creator hide concentrated holdings?</li>
+<li>Can malicious media escape the sandbox?</li>
+<li>Can indexers suppress legitimate releases?</li>
+<li>Can a copied identity fool users?</li>
+<li>Does batch launch materially reduce ordering advantage?</li>
+<li>Do reserve invariants survive arbitrary transaction sequences?</li>
+</ul>
+<h2 id="17-6-go-no-go-criteria">17.6 Go/no-go criteria<a class="anchor" href="#17-6-go-no-go-criteria" aria-label="Link to this section">#</a></h2>
+<p>A real-value pilot should not proceed unless:</p>
+<ol>
+<li>the local library is useful without the token;</li>
+<li>the manifest is independently reproducible;</li>
+<li>the reserve program passes property tests, fuzzing, and external audit;</li>
+<li>interfaces accurately explain early-entry upside and downside;</li>
+<li>creator, curator, and community value appears in nonfinancial tests;</li>
+<li>rights, moderation, privacy, and incident owners exist; and</li>
+<li>specialist counsel has reviewed the actual implementation and communications.</li>
+</ol>
+<h1 id="18-regulatory-and-communications-posture">18. Regulatory and communications posture<a class="anchor" href="#18-regulatory-and-communications-posture" aria-label="Link to this section">#</a></h1>
+<p>This section is not legal advice.</p>
+<p>The intended early-curator upside is a material economic fact. It cannot be described in the technical mechanism and then denied in marketing.</p>
+<p>A March 2026 SEC/CFTC Commission-level interpretation discusses circumstances in which qualifying digital collectibles may be non-security crypto assets, but also emphasizes that a non-security asset can be sold subject to an investment contract, that issuer promises and managerial efforts matter, and that a project whitepaper can be attributable issuer communication.<sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup></p>
+<p>MediaToken therefore requires unusually disciplined communication:</p>
+<ul>
+<li>say that early gains come from later net demand;</li>
+<li>never promise appreciation or a successful audience;</li>
+<li>do not imply passive rights to creator income;</li>
+<li>distinguish creator fees from holder returns;</li>
+<li>disclose creator holdings and control;</li>
+<li>describe the token as a position in demand, not ownership of content or people;</li>
+<li>show declining redemption quotes and concentration;</li>
+<li>avoid “guaranteed,” “permanent,” and “risk-free”; and</li>
+<li>obtain specialist review before any public real-value launch.</li>
+</ul>
+<p>Calling something a collectible does not decide its legal classification. Neither does a disclaimer erase the substance of the mechanism.</p>
+<h1 id="19-open-questions">19. Open questions<a class="anchor" href="#19-open-questions" aria-label="Link to this section">#</a></h1>
+<ol>
+<li>Is one release the right unit, or should some works use creator/catalog markets?</li>
+<li>Is a fully reserved linear curve the best expression of attention, or would a fixed supply and AMM be healthier?</li>
+<li>What creator fee supports work without making trading extractive?</li>
+<li>Should a creator hold a launch position, and who backs it?</li>
+<li>What active community work deserves funding?</li>
+<li>Can curator attribution resist self-referral and wash trading?</li>
+<li>Will people keep public media locally without any direct hosting reward?</li>
+<li>How should clients budget disk automatically without removing beloved work unexpectedly?</li>
+<li>Can a local-library social product thrive without financial participation?</li>
+<li>How should verified creator identity and disputed rights work?</li>
+<li>How do communities preserve important but unpopular work?</li>
+<li>Does financializing taste improve discovery or corrupt it?</li>
+<li>Which external creator commerce makes the system positive-sum?</li>
+<li>Can the mechanism be validated first with play money or nontransferable positions?</li>
+<li>What result would falsify the entire attention-market thesis?</li>
+</ol>
+<h1 id="20-conclusion">20. Conclusion<a class="anchor" href="#20-conclusion" aria-label="Link to this section">#</a></h1>
+<p>MediaToken begins with a simple complaint: creators and audiences produce the value of attention, but platforms own the economic relationship.</p>
+<p>The proposed alternative centers the released work itself.</p>
+<p>The creator signs it. IPFS identifies and moves it. People keep the actual bytes in personal libraries. Solana gives the release a portable market and history. Curators take positions, build context, and carry the work into communities. New attention can reward the creator and the people who recognized it early.</p>
+<p>The system does not need to pay people to pretend they care. It relies on the fact that people already collect, recommend, discuss, and preserve the things they love.</p>
+<p>That produces a concise vision:</p>
+<blockquote>
+<p>Likes become positions. Feeds become libraries. Audiences become networks.</p>
+</blockquote>
+<p>MediaToken does not guarantee that a work deserves attention or will receive it. It proposes that when attention does form, more of its value should remain with the creator and community that made it possible.</p>
+<h1 id="appendix-a-manifest-requirements">Appendix A — Manifest requirements<a class="anchor" href="#appendix-a-manifest-requirements" aria-label="Link to this section">#</a></h1>
+<table>
+<thead>
+<tr>
+<th>Field group</th>
+<th>Required data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schema</td>
+<td>Protocol and canonical-encoding version</td>
+</tr>
+<tr>
+<td>Creator</td>
+<td>Solana key, signature algorithm, signature, optional identity credential</td>
+</tr>
+<tr>
+<td>Release</td>
+<td>Title, description, publication time, media type, language</td>
+</tr>
+<tr>
+<td>Content</td>
+<td>Root CID, file paths, CIDs, byte sizes, MIME types, SHA-256</td>
+</tr>
+<tr>
+<td>Import</td>
+<td>CID version, codec, hash, chunker, DAG layout, raw-leaf policy</td>
+</tr>
+<tr>
+<td>Presentation</td>
+<td>Preview, poster, and primary-entry CIDs</td>
+</tr>
+<tr>
+<td>Rights</td>
+<td>Statement, document URI/CID, token grants</td>
+</tr>
+<tr>
+<td>Safety</td>
+<td>Content warnings, encryption state, expected viewer sandbox</td>
+</tr>
+<tr>
+<td>Lineage</td>
+<td>Supersedes, derived-from, series, edition</td>
+</tr>
+<tr>
+<td>Market</td>
+<td>Release PDA, mint, reserve mint, curve template, fee schedule</td>
+</tr>
+<tr>
+<td>Extensibility</td>
+<td>Namespaced fields with deterministic ordering</td>
+</tr>
+</tbody>
+</table>
+<p>A formal schema must define Unicode normalization, path safety, size limits, MIME validation, signature-domain separation, and test vectors.</p>
+<h1 id="appendix-b-economic-invariants">Appendix B — Economic invariants<a class="anchor" href="#appendix-b-economic-invariants" aria-label="Link to this section">#</a></h1>
+<ol>
+<li>Reserve principal equals <em>B(circulating supply)</em>.</li>
+<li>Every redeemable token has corresponding principal.</li>
+<li>Fees are outside principal.</li>
+<li>Only the market PDA can mint and co-sign burns; each burn also requires holder or delegate authorization.</li>
+<li>No administrator can sweep the reserve.</li>
+<li>Creator and community holdings are visible.</li>
+<li>Creator launch inventory is explicitly backed.</li>
+<li>Trades are atomic and slippage-bounded.</li>
+<li>Rounding cannot accumulate hidden insolvency.</li>
+<li>Emergency actions preserve participant liabilities.</li>
+<li>Market parameters lock per release.</li>
+<li>Curve quote is never used as an external collateral oracle.</li>
+</ol>
+<h1 id="appendix-c-relationship-matrix">Appendix C — Relationship matrix<a class="anchor" href="#appendix-c-relationship-matrix" aria-label="Link to this section">#</a></h1>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Evidence</th>
+<th>Important limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>This is the exact release</td>
+<td>CID and canonical manifest</td>
+<td>Does not prove it remains available</td>
+</tr>
+<tr>
+<td>This key published it</td>
+<td>Manifest signature</td>
+<td>Does not prove real identity or rights</td>
+</tr>
+<tr>
+<td>This wallet holds a position</td>
+<td>Solana token account</td>
+<td>Does not prove interest, viewing, or local bytes</td>
+</tr>
+<tr>
+<td>This user keeps a copy</td>
+<td>Local library state</td>
+<td>Private unless voluntarily disclosed</td>
+</tr>
+<tr>
+<td>This peer can provide blocks</td>
+<td>Successful IPFS retrieval</td>
+<td>Does not promise future service</td>
+</tr>
+<tr>
+<td>This creator earned fees</td>
+<td>On-chain vault flow</td>
+<td>Does not make holders revenue owners</td>
+</tr>
+<tr>
+<td>This curator entered early</td>
+<td>Public transaction history</td>
+<td>Does not prove their recommendation caused later demand</td>
+</tr>
+<tr>
+<td>Attention increased</td>
+<td>Several market/social measures</td>
+<td>No single metric equals human attention</td>
+</tr>
+</tbody>
+</table>
+<h1 id="appendix-d-glossary">Appendix D — Glossary<a class="anchor" href="#appendix-d-glossary" aria-label="Link to this section">#</a></h1>
+<p><strong>Attention market</strong> — A market whose asset is linked to a cultural object and whose state reflects economically committed demand.</p>
+<p><strong>Automatic quote</strong> — A deterministic buy or sell amount supplied by the curve without a matching counterparty at that instant.</p>
+<p><strong>CID</strong> — An IPFS content identifier naming a particular content representation.</p>
+<p><strong>Collector</strong> — A person who keeps media in a local library, whether or not they hold its token.</p>
+<p><strong>Committed attention</strong> — Demand expressed through an economically costly action such as acquiring and holding a MediaToken.</p>
+<p><strong>Community treasury</strong> — Disclosed release-specific funds for active community work, separate from reserve principal.</p>
+<p><strong>Creator fee</strong> — Quote-asset compensation routed to the release creator from market activity.</p>
+<p><strong>Curve principal</strong> — Assets locked to back redemptions according to the reserve function.</p>
+<p><strong>Local library</strong> — User-controlled content and manifests available for offline use and optional peer exchange.</p>
+<p><strong>MediaToken</strong> — A provisional name for a fungible position in the attention market around one immutable release.</p>
+<p><strong>Ownable attention</strong> — Shorthand for owning a transferable position whose value responds to demand around a cultural object; not ownership of people or views.</p>
+<p><strong>Release</strong> — One immutable signed manifest and its content set.</p>
+<h1 id="publication-information">Publication information<a class="anchor" href="#publication-information" aria-label="Link to this section">#</a></h1>
+<h2 id="author">Author<a class="anchor" href="#author" aria-label="Link to this section">#</a></h2>
+<p><strong>Matthew J. Taylor</strong> is a software developer, writer, and digital artist. He has worked in software development for more than two decades and publishes work across code, art, technology, and philosophy at <a href="https://mjt.dev/">mjt.dev</a>.</p>
+<h2 id="canonical-edition">Canonical edition<a class="anchor" href="#canonical-edition" aria-label="Link to this section">#</a></h2>
+<p>The canonical edition, browser version, print PDF, and integrity record are published at <a href="https://mjt.dev/mediatoken/">mjt.dev/mediatoken</a>. The <a href="https://mjt.dev/papers/">mjt.dev Papers catalog</a> is the publication home for this and future papers.</p>
+<h2 id="recommended-citation">Recommended citation<a class="anchor" href="#recommended-citation" aria-label="Link to this section">#</a></h2>
+<blockquote>
+<p>Taylor, Matthew J. “MediaToken: Own the Attention. Keep the Work.” Discussion draft 0.2, July 2026. https://mjt.dev/mediatoken/.</p>
+</blockquote>
+<h2 id="license">License<a class="anchor" href="#license" aria-label="Link to this section">#</a></h2>
+<p>Copyright © 2026 Matthew J. Taylor. The paper text and original figures are licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where a cited source indicates otherwise.</p>
+<h2 id="research-and-editorial-process">Research and editorial process<a class="anchor" href="#research-and-editorial-process" aria-label="Link to this section">#</a></h2>
+<p>This paper was developed through author-directed research and drafting with AI assistance for synthesis, adversarial review, code, and visual production. The author selected the direction, adjudicated corrections, and accepts responsibility for the paper’s claims and conclusions.</p>
+<h1 id="notes-and-sources">Notes and sources<a class="anchor" href="#notes-and-sources" aria-label="Link to this section">#</a></h1>
+<hr class="footnotes-sep" />
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>IPFS Docs, <a href="https://docs.ipfs.tech/concepts/content-addressing/">Content Identifiers</a>. <a href="#fnref1" class="footnote-backref">↩︎</a> <a href="#fnref1:1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>17 U.S.C. § 202, <a href="https://uscode.house.gov/view.xhtml?edition=prelim&amp;req=granuleid:USC-prelim-title17-section202&amp;num=0">Ownership of copyright as distinct from ownership of material object</a>. <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>17 U.S.C. § 204, <a href="https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title17-section204&amp;num=0&amp;edition=prelim">Execution of transfers of copyright ownership</a>. <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>Solana Docs, <a href="https://solana.com/docs/core/pda">Program Derived Addresses</a>. <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>Token-2022 Documentation, <a href="https://www.solana-program.com/docs/token-2022">Token-2022 program</a>. <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p>Solana Docs, <a href="https://solana.com/docs/tokens/extensions/permissioned-burn/">Permissioned Burn extension</a>. <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p>Solana Docs, <a href="https://solana.com/docs/tokens/extensions">Token extensions</a>. <a href="#fnref7" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn8" class="footnote-item"><p>IPFS Docs, <a href="https://docs.ipfs.tech/concepts/persistence/">Persistence, permanence, and pinning</a>. <a href="#fnref8" class="footnote-backref">↩︎</a> <a href="#fnref8:1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn9" class="footnote-item"><p>IPFS Docs, <a href="https://docs.ipfs.tech/concepts/bitswap/">Bitswap</a>. <a href="#fnref9" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn10" class="footnote-item"><p>IPFS Docs, <a href="https://docs.ipfs.tech/concepts/dht/">Distributed Hash Tables</a>. <a href="#fnref10" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn11" class="footnote-item"><p>IPFS Docs, <a href="https://docs.ipfs.tech/concepts/privacy-and-encryption/">Privacy and encryption</a>. <a href="#fnref11" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn12" class="footnote-item"><p>Solana Docs, <a href="https://solana.com/docs/tokens/extensions/transfer-fees">Transfer Fee extension</a>. <a href="#fnref12" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn13" class="footnote-item"><p>Bram Cohen, <a href="https://www.bittorrent.org/beps/bep_0003.html">The BitTorrent Protocol Specification</a>. <a href="#fnref13" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn14" class="footnote-item"><p>Eyal Hertzog, Guy Benartzi, and Galia Benartzi, <a href="https://resources.bancor.network/pages/BancorProtocolWhitepaper.pdf">Bancor Protocol whitepaper</a>, 2017. <a href="#fnref14" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn15" class="footnote-item"><p>Zora Docs, <a href="https://docs.zora.co/coins/contracts/rewards">Protocol rewards and content-coin fees</a>. <a href="#fnref15" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn16" class="footnote-item"><p>Open Audio Protocol Docs, <a href="https://docs.openaudio.org/concepts/artist-coins/">Artist coins</a>. <a href="#fnref16" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn17" class="footnote-item"><p>Open Audio Protocol Docs, <a href="https://docs.openaudio.org/concepts/media-storage/">Media storage</a>. <a href="#fnref17" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn18" class="footnote-item"><p>U.S. Securities and Exchange Commission and Commodity Futures Trading Commission, <a href="https://www.federalregister.gov/documents/2026/03/23/2026-05635/application-of-the-federal-securities-laws-to-certain-types-of-crypto-assets-and-certain">Application of the Federal Securities Laws to Certain Types of Crypto Assets</a>, Release No. 33-11412, effective March 23, 2026. This paper does not rely on the interpretation as a safe harbor or classification of a future implementation. <a href="#fnref18" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+<div class="build-stamp">Discussion draft 0.2 · Matthew J. Taylor · CC BY 4.0 · canonical edition: mjt.dev/mediatoken</div>
+</main>
+</body>
+</html>

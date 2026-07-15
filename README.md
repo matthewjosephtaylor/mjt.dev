@@ -51,7 +51,7 @@ Dark by default (art reads better, aligns with Desk visual language). Light mode
 
 ```
 docs/                         # GitHub Pages root (CNAME → mjt.dev)
-├── index.html                # Landing page — hero + three domain cards
+├── index.html                # Landing page — hero + six domain cards
 ├── style.css                 # Single design system (CSS custom properties)
 ├── favicon.ico
 ├── CNAME                     # GitHub Pages custom domain
@@ -64,7 +64,9 @@ docs/                         # GitHub Pages root (CNAME → mjt.dev)
 ├── about/index.html          # Gödel → Hope philosophical story
 ├── art/index.html            # Gallery — 113 lazy-loaded thumbnails
 ├── art-*/index.html          # Individual art pages (generated)
-├── writing/index.html        # Writing wayfinder — Books, Substack, Medium
+├── writing/index.html        # Writing wayfinder — Papers, Books, Substack, Medium
+├── papers/index.html         # Catalog for technical and conceptual papers
+├── mediatoken/               # Canonical first paper: landing, browser/PDF editions, figures, checksums
 ├── blog/                     # Legacy posts (unlinked, URLs preserved)
 ├── process/index.html        # Seven-step creative process
 └── thanks/index.html         # Acknowledgments
@@ -110,6 +112,8 @@ Hover states only, 150ms. No scroll effects, no parallax, no fade-ins. If a thin
 | `.hero` | Landing page hero (centered, generous padding) |
 | `.domains` | Three-column card grid (`auto-fit, minmax(240px, 1fr)`) |
 | `.domain-card` | Image + label card with hover border |
+| `.publication-grid` | Reusable multi-paper catalog grid |
+| `.publication-card` | Paper cover, edition, title, subtitle, and publication metadata |
 | `.gallery-grid` | Art thumbnail grid (`auto-fill, minmax(200px, 1fr)`) |
 | `.venue-block` | Surface card with padding (writing page) |
 | `.button` | Inline action button (border background, hover invert) |
@@ -154,6 +158,14 @@ python3 -m http.server 8080 -d docs/
 1. Add cover image to `docs/assets/`
 2. Update the books section in `scripts/build-writing-page.js` (or `docs/writing/index.html` directly)
 3. Commit and push
+
+### New paper
+1. Add the canonical publication under `docs/<paper-slug>/`
+2. Add one `.publication-card` to `docs/papers/index.html`
+3. Update the homepage Papers card detail if the new paper should be featured
+4. Include browser/PDF editions, citation and license details, and checksums
+5. Verify local links, images, dark/light modes, and responsive layout
+6. Commit and push
 
 ### New blog/article
 1. Run `node scripts/build-writing-page.js` to pull latest RSS
